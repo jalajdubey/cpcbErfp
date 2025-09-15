@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject; // Use the correct Tymon namespace
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+
+class User extends Authenticatable implements JWTSubject
+{
+    use Notifiable;
+    protected $casts = [
+        'last_otp_sent_at' => 'datetime',
+        'otp_expires_at' => 'datetime',
+    ];
+    // Mass assignable attributes
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'mobile_no',
+        'email',
+        'role_type',
+        'password',
+        'otp',
+        'otp_expires_at',
+        'last_otp_sent_at',
+    ];
+
+    // Hidden attributes
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the identifier that will be stored in the JWT token.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey(); // Typically the primary key (id)
+    }
+
+    /**
+     * Return a key-value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'email' => $this->email,
+            'name'  => $this->name,
+        ];
+    }
+
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role_type')->default('user'); // Available roles: admin, editor, user
+
+        });
+    }
+    public function down()
+    {
+        Schema::dropIfExists('users');
+    }
+    public function hasRole($roles)
+    {
+        if (is_array($roles)) {
+            return in_array($this->role_type, $roles);
+        }
+        return $this->role_type === $roles;
+    }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
+
+    public function passwordHistories()
+    {
+        return $this->hasMany(PasswordHistory::class);
+    }
+    public function setValidationHash()
+    {
+        $hash = Hash::make($this->email . $this->password . $this->mobile_number);
+        UserValidationHash::updateOrCreate(
+            ['user_id' => $this->id],
+            ['validation_hash' => $hash]
+        );
+    }
+
+    public function getValidationHash()
+    {
+        return $this->hasOne(UserValidationHash::class)->first()->validation_hash ?? null;
+    }
+
+    public function industry()
+    {
+        return $this->hasOne(ApiKey::class, 'user_id');
+    }
+    public function uploadedDocuments()
+    {
+        return $this->hasMany(UploadedDocument::class);
+    }
+    public function industryMasterData()
+    {
+        return $this->hasOne(IndustryMasterData::class);
+    }
+}

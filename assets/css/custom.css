@@ -1,0 +1,500 @@
+.logo-list li {
+    list-style: none;
+   
+}
+.box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 1px 1px 4px 4px #0000001a;
+    transition: transform .3s, box-shadow .3s;
+}
+.box img {
+    width: 160px;
+    height: 200px;
+   
+   
+    margin-bottom: 15px;
+    padding: 2px;
+    
+    vertical-align: middle;
+}
+.box h4{
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0 5px;
+   
+}
+.box h5{
+    font-size: 16px;
+    color: linear-gradient(45deg, #084095, #108e16);;
+    margin: 0;
+    text-transform: capitalize;
+    font-weight: 400;
+    
+}
+.carousel-item {
+    height: 350px;
+  }
+  .carousel-item img {
+    object-fit: cover; /* Ensures the images cover the area without stretching */
+    height: 100%; /* Maintains the height constraint */
+    width: 100%; /* Maintains width for responsiveness */
+  }
+.main-heading{
+    font-weight:bold;
+    font-size:18px;
+}
+.mefcc p {
+    background-color: red;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(45deg, #084095, #108e16);
+  
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+    font-weight: 600;
+    margin-bottom: 6px !important;
+    font-size: 18px;
+}
+.top-header{
+    background: linear-gradient(269.87deg, #084095 2.99%, #108e16 96.59%);
+    color: #ffffff;
+    padding: 3px;
+    font-size: 15px;
+}
+.profile-st {
+    -webkit-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+    margin-right: -15px;
+    background:#fff;
+    margin-top:20px;
+}
+.profile-st ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: table;
+    padding-top: 41px;
+    text-align: center;
+}
+.profile-st ul li:first-child {
+    width: 100%;
+    margin-bottom: 33px;
+}
+.profile-st ul li {
+    width: 50%;
+    float: left;
+    margin-bottom: 17px;
+}
+.profile-st ul li img {
+    z-index: 2;
+    position: inherit;
+}
+.profile-st ul li a {
+    display: table;
+    margin: 0 auto;
+    margin-top: 5px;
+    color: #000;
+}
+nav{
+    background:#084095 !important;
+    color: #ffffff;
+    padding: 3px;
+    font-size: 15px;
+}
+#footer {
+      background: #084095;
+    color: #ffffff !important;
+    padding: 3px;
+    font-size: 15px;
+}
+.nav-link{
+    color:#fff;
+}
+h4{
+    font-family: 'Cabin', sans-serif;
+  font-weight: normal;
+  font-size: 24;
+  text-align: center;
+  margin-bottom: 0;
+  margin-bottom: -0.25em;
+}
+.navbar-collapse {
+            justify-content: space-between;
+        }
+
+.mref{
+  /* Fallback: Set a background color. */
+  background-color: red;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(45deg, #084095, #108e16);
+  
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+.mid-section{
+    position: relative;
+    background-image: linear-gradient(45deg, #084095, #108e16);
+    height:50vh;
+}
+.innerheader{
+    position:absolute;
+    background:#fff;
+}
+.updatebg{
+    background-image: linear-gradient(45deg, #108e16, #084095);
+    color:#fff;
+    margin-top:-20px;
+    padding: 5px;
+}
+.evsection{
+    background: linear-gradient(135deg, #f9f9f9 0%, #e0e0e0 100%);
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+.info-box{
+    background-color: #f8f9fa; /* Light gray background */
+            border: 1px solid #dee2e6; /* Slight border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 20px; /* Ample padding */
+            margin-top: 20px; /* Top margin for spacing */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+.loginsection{
+    width:100%;
+}
+
+
+* {
+    /* margin: 0;
+    padding: 0;
+    box-sizing: border-box; */
+    font-family: 'Cabin', sans-serif;
+}
+
+
+.custom-login-btn {
+  display: inline-block;
+  padding: 10px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #28a745, #218838);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+  transition: all 0.3s ease;
+}
+
+.custom-login-btn:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34);
+  box-shadow: 0 6px 14px rgba(33, 136, 56, 0.5);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: #fff;
+}
+.custom-nav-link {
+  color: #ffffff !important;
+  font-size: 14px  !important;
+  font-weight: 600 !important;
+  padding: 6px 12px;
+  transition: color 0.3s, background 0.3s;
+}
+
+.custom-nav-link:hover,
+.custom-nav-link.active {
+  color: #ffc107 !important; /* Bootstrap's warning color or change as needed */
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  text-decoration: none;
+}
+.custom-underline {
+  border-bottom: 3px solid #28a745;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.erf-list {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.erf-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+  position: relative;
+  font-size: 16px;
+  color: #333;
+}
+
+.erf-list li::before {
+  content: "✔";
+  color: #28a745;
+  font-weight: bold;
+  position: absolute;
+  left: -1.2rem;
+}
+
+
+
+.login-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 410px;
+    width: 100%;
+    /* height: 90%; */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+.btn-signin {
+    width: 35%;
+    background-image: linear-gradient(45deg, #084095, #108e16);
+    color: #fff;
+    font-weight: 400;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border: none;
+    font-size: 16px;
+}
+
+.btn-signin:hover {
+    background: linear-gradient(90deg, #ee0979, #ff6a00);
+    color: white;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+    color: #ff6a00;
+}
+
+
+
+#refresh-captcha {
+    background: #ff6a00;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fff;
+    transition: 0.3s;
+}
+
+#refresh-captcha:hover {
+    background: #ee0979;
+}
+
+.blur-image {
+filter: blur(1px); /* Adjust blur level */
+opacity: 0.3; /* Adjust opacity */
+}
+#loader {
+    position: fixed; /* or absolute */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* high z-index to make it appear on top */
+}
+.section-title {
+    font-size: 1.25rem;
+    color: #2A6A8E;
+    border-bottom: 3px solid #F4A261;
+    /* display: inline-block; */
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.form-label {
+    font-weight: 600 !important;
+    color: #2A6A8E !important;
+    
+}
+.required::after {
+    content: " *";
+    color: #D9534F;
+    font-weight: bold;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.card-header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.hidden-field {
+    visibility: hidden;  /* Instead of display: none */
+    height: 0;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: #2A6A8E;
+    border-bottom: 3px solid #F4A261;
+    /* display: inline-block; */
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+
+.required::after {
+    content: " *";
+    color: #D9534F;
+    font-weight: bold;
+}
+
+.form-control, .form-select {
+    border: 2px solid #2A6A8E;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #F4A261;
+    box-shadow: 0 0 8px rgba(244, 162, 97, 0.4);
+    outline: none;
+}
+
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 0.8;
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, #2A6A8E, #1F4D6A);
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 106, 142, 0.3);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(90deg, #1F4D6A, #143B54);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 106, 142, 0.5);
+}
+
+.input-group-text {
+    background-color: #2A6A8E !important;
+    color: white !important;
+    border: none !important;
+}
+.sendEmailOTPDiv {
+    margin: 15px 0px !important;
+
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 20px;
+    }
+    .submit-btn {
+        width: 100%;
+    }
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #ff0707;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content-loader {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background: #c7c7c799;
+    width: 100%;
+    height: 100vh !important;
+    left: 0;
+    padding-top: 10%;
+    display: none;
+}
+
+.error {
+    float: left;
+    color: red;
+    font-size: 12px;
+    display: none;
+}

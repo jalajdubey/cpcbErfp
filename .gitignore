@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 *.sql
 /fastapi_app
+/app_old
+/resources_old
+/resourcesold
+/routes_old
