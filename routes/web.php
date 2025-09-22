@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Monitering;
 use App\Http\Controllers\Industries;
 use App\Http\Controllers\AdminInsurance;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\SecureFileController;
 
 /*
@@ -46,7 +47,9 @@ Route::post('/register', [RegisterController::class, 'processRegistration'])->na
 // Route::post('/verify-otp', [RegisterController::class, 'sendOtp'])->name('verify-otp');
 Route::post('/send-otp', [RegisterController::class, 'sendOtp'])->name('send-otp');
 Route::post('/hverify-otp', [RegisterController::class, 'RegverifyOtp'])->name('ajax.verify-otp');
-
+Route::get('/get-districts-by-state', [GeneralController::class, 'getDistrictsByState'])
+     ->name('get.districts.by.state');
+Route::post('/verify-captcha', [GeneralController::class, 'verifyCaptcha'])->name('verify.captcha');
 
 
 
@@ -56,8 +59,8 @@ Route::post('/hverify-otp', [RegisterController::class, 'RegverifyOtp'])->name('
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('/reload-captcha', function () {
-    return response()->json(['captcha' => captcha_img('flat')]);
-});
+    return response()->json(['captcha' => captcha_src('flat')]);
+})->name('refresh.capctha');
 
 Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('resend-otp');
 Route::get('/verify-otp-page', function () {
@@ -71,7 +74,7 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verify-o
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/captcha', [AuthController::class, 'createCaptcha']);
-Route::post('/validate-captcha', [AuthController::class, 'validateCaptcha']);
+// Route::post('/validate-captcha', [AuthController::class, 'validateCaptcha']);
 /* password reset link*/
 
 Route::get('forgot-password', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
@@ -99,6 +102,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/password/update', [AuthController::class, 'updatePassword'])->name('password.update');
+    Route::get('/policy/data/verification', [Industries::class, 'showPolicyForm'])->name('policy.check.form');
+    
 
     Route::middleware(['role:1'])->group(function () {
         Route::get('/userrole', [AdminController::class, 'index']);

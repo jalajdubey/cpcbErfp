@@ -88,6 +88,12 @@
             <p>Change Password</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('policy.check.form') }}">
+            <i class="fa fa-key"></i>
+            <p>Policy Data Verification</p>
+          </a>
+        </li>
 
       </ul>
           </div>

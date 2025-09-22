@@ -12,7 +12,7 @@
   }
 
   .card-body {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 
   .form-label.required::after {
@@ -23,7 +23,7 @@
   input.form-control:focus,
   .input-group input:focus {
     border-color: #0d6efd;
-    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 0.15rem rgba(1, 9, 20, 0.25);
   }
 
   .btn {
@@ -50,7 +50,7 @@
     font-weight: 500;
   }
 
-  .policy-header {
+  /* .policy-header {
     background: linear-gradient(90deg, #0d6efd11, #0dcaf011);
     border-bottom: 1px solid #dee2e6;
     border-top-left-radius: 12px;
@@ -61,7 +61,7 @@
   .policy-header h5 {
     margin-bottom: 0;
     font-weight: 600;
-  }
+  } */
 
   .otp-controls .btn {
     min-width: 110px;
@@ -72,162 +72,419 @@
       font-size: 0.85rem;
       padding: 0.35rem 0.5rem;
     }
+
     .card-body {
       padding: 1rem;
     }
   }
+
+  @media (min-width: 992px) {
+    .card {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 95%;
+    }
+
+    .card {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .container {
+      max-width: 1200px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .btn {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.75rem;
+    }
+
+    .input-group .form-control,
+    input.form-control {
+      font-size: 0.95rem;
+    }
+  }
+
+  .card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.card-header {
+  background-image: linear-gradient(#023b0e, #086f1e);
+  padding: 1rem 1.25rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1px solid #dbeafe;
+}
+
+.card-header h5 {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #f7f8fa;
+}
+
+.form-section {
+  border: 2px solid #c2cfc4; /* Grey border */
+  border-radius: 15px;
+  /* border-top: 1px solid #e2e8f0; */
+  /* padding-top: 2rem; */
+  /* margin-top: 1.5rem; */
+}
+
+.form-section-number {
+  background-color: #08921b
+  color: #0a58ca;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .form-section {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 575px) {
+ .card-body {
+    padding: 1rem;
+  }
+
+  .card-header h5 {
+    font-size: 1rem;
+  }
+  .card {
+    padding: 1rem;
+  }
+
+  .form-label,
+  .form-control,
+  .form-select {
+    font-size: 0.95rem;
+  }
+}
+.form-wrapper {
+  border: 2px solid #f1f5f2; /* Green border */
+  border-radius: 15px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.form-control.underline-only {
+    border: none;
+    border-bottom: 0.01px solid #0d0d0e;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: 0.01px solid #007bff; /* Change to your preferred color */
+    box-shadow: 0 0 2px rgba(0, 123, 255, 0.6); /* Light glow effect */
+}
 </style>
 
 
 
 <div class="container py-4">
-    <div class="row justify-content-center">
-      <div class="col-lg-9 col-xl-8">
-        <h3 class="mb-4 text-center fw-semibold text-primary">Registration</h3>
+  <div class="row justify-content-center">
+    <div class="col-lg-12 col-xl-12 col-xxl-11">
+      <h3 class="mb-4 text-center fw-semibold text-primary">Registration</h3>
+      <div class="form-wrapper">
+      <form method="POST" action="{{ route('register.process') }}" id="registrationForm"
+        autocomplete="off" novalidate>
+        @csrf
+        {{-- <input type="hidden" name="policy" value="{{ $policyData->policy_number }}">
+        <input type="hidden" name="role_type" value="3">
+        <input type="hidden" name="industry_id" value="{{ $policyData->id }}">
+        <input type="hidden" name="policy_number" value="{{ $policyData->policy_number }}">
+        <input type="hidden" name="otp_verified" id="otp_verified" value="0"> --}}
 
-        <form method="POST" action="{{ route('register.process', $policyData->policy_number) }}" id="registrationForm" autocomplete="off" novalidate>
-          @csrf
-          <input type="hidden" name="policy" value="{{ $policyData->policy_number }}">
-          <input type="hidden" name="role_type" value="3">
-          <input type="hidden" name="industry_id" value="{{ $policyData->id }}">
-          <input type="hidden" name="policy_number" value="{{ $policyData->policy_number }}">
-          <input type="hidden" name="otp_verified" id="otp_verified" value="0">
-
-          <!-- Policy details card -->
-          <div class="card mb-4">
-            <div class="card-body policy-header p-3">
-              <div class="d-flex align-items-center gap-3">
-                <div>
-                  <h5 class="mb-0">Policy details</h5>
-                  <small class="small-muted">Auto-filled from policy</small>
-                </div>
+        <!-- Policy details card -->
+        {{-- <div class="card mb-4">
+          <div class="card-body policy-header p-3">
+            <div class="d-flex align-items-center gap-3">
+              <div>
+                <h5 class="mb-0"><span class="form-section-number">Policy details</h5>
+                <small class="small-muted">Auto-filled from policy</small>
               </div>
             </div>
+          </div>
 
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Policy Number</label>
+                <input class="form-control underline-only" value="{{ $policyData->policy_number }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Industry Name</label>
+                <input class="form-control underline-only" value="{{ $policyData->name_of_insured_owner }}" readonly>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Insured Company ID</label>
+                <input class="form-control underline-only" value="{{ $policyData->insured_company_id }}" readonly>
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label">Address</label>
+                <input class="form-control underline-only"
+                  value="{{ trim(($policyData->address ?? '') . ' ' . ($policyData->address_line2 ?? '')) }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">City</label>
+                <input class="form-control underline-only" value="{{ $policyData->territorial_limits_district }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">State</label>
+                <input class="form-control underline-only" value="{{ $policyData->territorial_limits_state }}" readonly>
+              </div>
+            </div>
+          </div>
+        </div> --}}
+
+       <!-- 1. Industry Name Module -->
+        <div class="card form-section">
+          <div class="card-header">
+            <h5 class="mb-0"><span class="form-section-number">Industry Details</h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label required">Industry Name</label>
+                <input type="text" name="industry_name" class="form-control underline-only" maxlength="400" autocomplete="off" value="{{ old('industry_name') }}">
+                @error('industry_name') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+              
+              <div class="col-md-4">
+                <label class="form-label required">PAN Number</label>
+                <input type="text" name="pan_no" class="form-control underline-only" required value="{{ old('pan_no') }}" maxlength="10" autocomplete="off">
+                 @error('pan_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">GST Number (Optional)</label>
+                <input type="text" name="company_gst" class="form-control underline-only" value="{{ old('company_gst') }}" maxlength="15" autocomplete="off">
+                @error('company_gst') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Industry Address Module -->
+        <div class="card form-section">
+          <div class="card-header">
+            <h5 class="mb-0"><span class="form-section-number">Industry Address</h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label required">Locality</label>
+                <input type="text" name="locality" class="form-control underline-only" required value="{{ old('locality') }}" maxlength="200" autocomplete="off">
+                @error('locality') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">State</label>
+                <select name="state" id="stateDropdown" class="form-select" required>
+                  <option value="">-- Select State --</option>
+                  @foreach ($states as $state)
+                    <option value="{{ $state->state_code }}" {{ old('state') == $state->state_code ? 'selected' : '' }}>
+                      {{ $state->state_name }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">District</label>
+                 <select name="district" id="districtDropdown" class="form-select" required>
+                  <option value="">-- Select District --</option>
+                  {{-- District options will be populated here via AJAX --}}
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">Pincode</label>
+                <input type="number" name="industry_pincode" class="form-control underline-only" required value="{{ old('industry_pincode') }}" maxlength="6" autocomplete="off">
+                @error('industry_pincode') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Chemical Stored List -->
+        <div class="card form-section">
+            <div class="card-header">
+              <h5 class="mb-0"><span class="form-section-number">Chemical Stored List</span></h5>
+            </div>
             <div class="card-body">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label">Policy Number</label>
-                  <input class="form-control" value="{{ $policyData->policy_number }}" readonly>
-                </div>
+              <div class="mb-3">
+            <label class="form-label required">Select Chemicals</label>
 
-                <div class="col-md-6">
-                  <label class="form-label">Industry Name</label>
-                  <input class="form-control" value="{{ $policyData->name_of_insured_owner }}" readonly>
-                </div>
+            <!-- Select All Checkbox -->
+            <div class="form-check mb-2">
+              <input type="checkbox" class="form-check-input" id="select_all_chemicals">
+              <label class="form-check-label fw-semibold" for="select_all_chemicals">
+                Select All Chemicals
+              </label>
+            </div>
 
-                <div class="col-md-4">
-                  <label class="form-label">Insured Company ID</label>
-                  <input class="form-control" value="{{ $policyData->insured_company_id }}" readonly>
+            <!-- Scrollable container for checkboxes -->
+            <div id="chemical_list" style="max-height: 200px; overflow-y: auto; border: 1px solid #ced4da; border-radius: 4px; padding: 10px;">
+              @forelse ($chemicals as $chemical)
+                <div class="form-check">
+                  <input 
+                    type="checkbox" 
+                    name="chemicals[]" 
+                    value="{{ $chemical->id }}" 
+                    id="chemical_{{ $chemical->id }}" 
+                    class="form-check-input chemical-checkbox"
+                    {{ is_array(old('chemicals')) && in_array($chemical->id, old('chemicals')) ? 'checked' : '' }}
+                  >
+                  <label class="form-check-label" for="chemical_{{ $chemical->id }}">
+                    {{ $chemical->chemical_name }}
+                  </label>
                 </div>
+              @empty
+                <p class="text-muted">No chemicals available to select.</p>
+              @endforelse
+            </div>
 
-                <div class="col-md-8">
-                  <label class="form-label">Address</label>
-                  <input class="form-control" value="{{ trim(($policyData->address ?? '').' '.($policyData->address_line2 ?? '')) }}" readonly>
-                </div>
+            @error('chemicals')
+              <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
 
-                <div class="col-md-6">
-                  <label class="form-label">City</label>
-                  <input class="form-control" value="{{ $policyData->territorial_limits_district }}" readonly>
-                </div>
+            <div class="form-text small-muted mt-2">Check all chemicals stored at the facility</div>
+          </div>
 
-                <div class="col-md-6">
-                  <label class="form-label">State</label>
-                  <input class="form-control" value="{{ $policyData->territorial_limits_state }}" readonly>
-                </div>
-              </div>
             </div>
           </div>
 
-          <!-- User inputs -->
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label required">First Name</label>
-                  <input type="text" name="firstname" class="form-control" required value="{{ old('firstname') }}">
-                  @error('firstname') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
 
-                <div class="col-md-6">
-                  <label class="form-label required">Last Name</label>
-                  <input type="text" name="lastname" class="form-control" required value="{{ old('lastname') }}">
-                  @error('lastname') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Email Address</label>
-                  <input type="email" name="email" class="form-control" required value="{{ old('email') }}" autocomplete="off">
-                  @error('email') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Mobile</label>
-                  <input type="number" name="mobile_no" class="form-control" required value="{{ old('mobile_no') }}" inputmode="numeric" pattern="[0-9]{10}" maxlength="10">
-                  <div class="form-text small-muted">10-digit mobile number</div>
-                  @error('mobile_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Company PAN</label>
-                  <input type="text" name="pan_no" class="form-control" required value="{{ old('pan_no') }}">
-                  @error('pan_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Company GST No.</label>
-                  <input type="text" name="company_gst" class="form-control" required value="{{ old('company_gst') }}">
-                  @error('company_gst') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Address Pincode</label>
-                  <input type="number" name="industry_pincode" class="form-control" required value="{{ old('industry_pincode') }}">
-                  @error('industry_pincode') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Password</label>
-                  <div class="input-group">
-                    <input type="password" name="password" id="password" class="form-control" autocomplete="new-password" required>
-                    <span class="input-group-text toggle-password" id="togglePassword">Show</span>
-                  </div>
-                  <div class="form-text small-muted">Min 8 characters recommended</div>
-                  @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Confirm Password</label>
-                  <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
-                </div>
-
-                <!-- OTP block -->
-                <div class="col-12 col-md-6">
-                  <label class="form-label required">OTP</label>
-                  <div class="d-flex flex-wrap gap-2 otp-controls">
-                    <input type="text" id="otp_input" class="form-control" placeholder="Enter OTP" autocomplete="one-time-code" inputmode="numeric">
-                    <button type="button" id="send_otp_btn" class="btn btn-outline-primary">Send OTP</button>
-                    <button type="button" id="verify_otp_btn" class="btn btn-primary" disabled>Verify OTP</button>
-                  </div>
-                  <small id="otp_msg" class="form-text mt-2"></small>
-                </div>
-
+        <!-- 4. Authorised Person Info -->
+        <div class="card form-section" >
+          <div class="card-header">
+            <h5 class="mb-0"><span class="form-section-number">Authorised Person Info</h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label required">Email Address</label>
+                <input type="email" name="authorised_person_email" class="form-control underline-only" required value="{{ old('authorised_person_email') }}" maxlength="100" autocomplete="off">
+                @error('authorised_person_email') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">Mobile</label>
+                <input type="number" name="mobile_no" class="form-control underline-only" required value="{{ old('mobile_no') }}"
+                  inputmode="numeric" pattern="[0-9]{10}" maxlength="15" autocomplete="off">
+                <div class="form-text small-muted">10-digit mobile number</div>
+                @error('mobile_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+
             </div>
           </div>
+        </div>
 
-          <div class="d-flex justify-content-between align-items-center mt-4">
-            <div class="small-muted">Already have an account? <a href="{{ route('login') }}" class="text-decoration-none">Sign in</a></div>
-            <button id="create_account_btn" class="btn btn-success px-4" type="submit" disabled>Create Account</button>
+        <!-- 5. Login & Compliance Info -->
+        <div class="card form-section" >
+          <div class="card-header">
+            <h5 class="mb-0"><span class="form-section-number">Login & Compliance Details</h5>
           </div>
-        </form>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label required">Industry Email Address</label>
+                <input type="email" name="industry_email" class="form-control underline-only" required value="{{ old('industry_email') }}" maxlength="100" autocomplete="off">
+                @error('industry_email') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">Password</label>
+                <div class="input-group">
+                  <input type="password" name="password" id="password" class="form-control underline-only" autocomplete="new-password"
+                    required>
+                  <span class="input-group-text toggle-password" id="togglePassword">Show</span>
+                </div>
+                <div class="form-text small-muted">Min 8 characters recommended</div>
+                @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label required">Confirm Password</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control underline-only"
+                  required>
+              </div>
+              <!---Captcha code-->
+              <div class="col-md-4">
+                  <label for="captcha">Enter the text from the image:</label>
+                  <div class="d-flex align-items-center gap-2">
+                      <img src="{{ captcha_src('flat') }}" id="captcha-img" alt="captcha" class="img-fluid" style="height: 40px;">
+                      <button type="button" class="btn btn-outline-secondary btn-md" id="reload-captcha">
+                          ↻ Refresh
+                      </button>
+                  </div>
+                  <input type="text" id="captcha_input" name="captcha" class="form-control underline-only" placeholder="Enter CAPTCHA">
+                  @error('captcha')
+                      <span class="text-danger">{{ $message }}</span>
+                  @enderror
+              </div>
+              <!-- OTP block -->
+              <div class="col-md-4">
+                <label class="form-label required">OTP</label>
+                <div class="d-flex flex-wrap gap-2 otp-controls">
+                  <input type="text" id="otp_input" class="form-control underline-only" placeholder="Enter OTP"
+                    autocomplete="one-time-code" inputmode="numeric">
+                  <button type="button" id="send_otp_btn" class="btn btn-outline-primary">Send OTP</button>
+                  <button type="button" id="verify_otp_btn" class="btn btn-primary" disabled>Verify OTP</button>
+                </div>
+                <small id="otp_msg" class="form-text mt-2"></small>
+              </div>
+              
+
+            </div>
+          </div>
+        </div>
+        <!-- Submit -->
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <div class="small-muted">Already have an account? <a href="{{ route('login') }}"
+              class="text-decoration-none">Sign in</a></div>
+          <button id="create_account_btn" class="btn btn-success px-4" type="submit" disabled>Create Account</button>
+        </div>
+      </form>
       </div>
     </div>
   </div>
+</div>
 
+{{-- <script src="{{ asset('assets\js\jquery-3.7.1.min.js') }}"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-$(function() {
+
+  $(function () {
     var $sendBtn = $('#send_otp_btn');
     var $verifyBtn = $('#verify_otp_btn');
     var $otpInput = $('#otp_input');
@@ -245,155 +502,382 @@ $(function() {
 
     // Message helper
     function showMsg(text, type) {
-        var cls = 'text-muted';
-        if (type === 'success') cls = 'text-success';
-        if (type === 'error') cls = 'text-danger';
-        $otpMsg.removeClass('text-muted text-success text-danger').addClass(cls).text(text);
+      var cls = 'text-muted';
+      if (type === 'success') cls = 'text-success';
+      if (type === 'error') cls = 'text-danger';
+      $otpMsg.removeClass('text-muted text-success text-danger').addClass(cls).text(text);
     }
 
-    // 🟢 Helper: validate required fields
+    //  Helper: validate required fields
     function validateFields(beforeAction = 'send') {
-        var firstname = $('input[name="firstname"]').val().trim();
-        var lastname = $('input[name="lastname"]').val().trim();
-        var email = $('input[name="email"]').val().trim();
-        var mobile = $('input[name="mobile_no"]').val().trim();
-        var pan = $('input[name="pan_no"]').val().trim();
-        var gst = $('input[name="company_gst"]').val().trim();
-        var pincode = $('input[name="industry_pincode"]').val().trim();
-        var pass = $('input[name="password"]').val();
-        var confirmPass = $('input[name="password_confirmation"]').val();
+      var industry_name = $('input[name="industry_name"]').val().trim();
+      // var lastname = $('input[name="lastname"]').val().trim();
+      var email = $('input[name="email"]').val().trim();
+      var mobile = $('input[name="mobile_no"]').val().trim();
+      var pan = $('input[name="pan_no"]').val().trim();
+      var gst = $('input[name="company_gst"]').val().trim();
+      var pincode = $('input[name="industry_pincode"]').val().trim();
+      var pass = $('input[name="password"]').val();
+      var confirmPass = $('input[name="password_confirmation"]').val();
+      var stateDropdown = $('input[name="state"]').val();
+      var districtDropdown = $('input[name="district"]').val();
+      console.log(stateDropdown);
 
-        // Generic required check
-        if (!firstname || !lastname || !email || !mobile || !pan || !gst || !pincode || !pass || !confirmPass) {
-            showMsg('Please fill in all required fields before ' + (beforeAction === 'send' ? 'sending OTP.' : 'verifying OTP.'), 'error');
-            return false;
-        }
+      // Generic required check
+      if (!industry_name || !email || !mobile || !pan || !pincode || !pass || !confirmPass || stateDropdown || districtDropdown) {
+        showMsg('Please fill in all required fields before ' + (beforeAction === 'send' ? 'sending OTP.' : 'verifying OTP.'), 'error');
+        return false;
+      }
 
-        // Email format
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-            showMsg('Enter a valid email address.', 'error');
-            return false;
-        }
+      // Email format
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showMsg('Enter a valid email address.', 'error');
+        return false;
+      }
 
-        // Mobile check (10 digits)
-        if (!/^[0-9]{10}$/.test(mobile)) {
-            showMsg('Enter a valid 10-digit mobile number.', 'error');
-            return false;
-        }
+      // Mobile check (10 digits)
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMsg('Enter a valid 10-digit mobile number.', 'error');
+        return false;
+      }
 
-       // PAN check using regex
-        var panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i;
-        if (!panRegex.test(pan)) {
-            showMsg('Enter a valid 10-character PAN number (e.g. ABCDE1234F).', 'error');
-            return false;
-        }
+      // PAN check using regex
+      var panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i;
+      if (!panRegex.test(pan)) {
+        showMsg('Enter a valid 10-character PAN number (e.g. ABCDE1234F).', 'error');
+        return false;
+      }
 
-        // GST check using regex
-        var gstRegex = /^\d{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/i;
-        if (!gstRegex.test(gst)) {
-            showMsg('Enter a valid 15-character GST number (e.g. 22ABCDE1234F1Z5).', 'error');
-            return false;
-        }
-        // Pincode check (6 digits)
-        if (!/^[0-9]{6}$/.test(pincode)) {
-            showMsg('Enter a valid 6-digit pincode.', 'error');
-            return false;
-        }
+      // GST check using regex
+      var gstRegex = /^\d{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/i;
+      // if (!gstRegex.test(gst)) {
+      //  showMsg('Enter a valid 15-character GST number (e.g. 22ABCDE1234F1Z5).', 'error');
+      //  return false;
+      // }
+      // Pincode check (6 digits)
+      if (!/^[0-9]{6}$/.test(pincode)) {
+        showMsg('Enter a valid 6-digit pincode.', 'error');
+        return false;
+      }
 
-        // Password match
-        if (pass !== confirmPass) {
-            showMsg('Passwords do not match.', 'error');
-            return false;
-        }
+      // Password match
+      if (pass !== confirmPass) {
+        showMsg('Passwords do not match.', 'error');
+        return false;
+      }
+      // state match
+      if ($('#stateDropdown').val() == '') {
+        showMsg('Please select state.', 'error');
+        return false;
+      }
+      // district match
+     if ($('#districtDropdown').val() === '') {
+        showMsg('Please select district.', 'error');
+        return false;
+      }
 
-        return true;
+      return true;
     }
+    // to show password
+    $('#togglePassword').on('click', function() {
+        var $password = $('#password');
+        var type = $password.attr('type') === 'password' ? 'text' : 'password';
+        $password.attr('type', type);
+
+        // Optionally change the button text
+        $(this).text(type === 'password' ? 'Show' : 'Hide');
+    });
 
     // SEND OTP
-    $sendBtn.on('click', function () {
-        if (!validateFields('send')) return;
-
+    function sendOtp() {
         var mobile = $('input[name="mobile_no"]').val().trim();
-        var email  = $('input[name="email"]').val().trim();
-        var policy = $.trim($('input[name="policy"]').val() || '');
+        var email = $('input[name="email"]').val().trim();
 
         showMsg('Sending OTP...');
         $sendBtn.prop('disabled', true);
 
         $.ajax({
-            url: sendOtpUrl,
-            method: 'POST',
-            data: { mobile, email, policy, _token: csrfToken },
-            dataType: 'json'
-        }).done(function(data) {
-            if (data && data.success) {
-                showMsg(data.message || 'OTP sent. Check your phone/email.', 'success');
-                $otpInput.focus();
-                $verifyBtn.prop('disabled', false);
-            } else {
-                showMsg((data && data.message) ? data.message : 'Failed to send OTP. Try again.', 'error');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            showMsg('Network error while sending OTP.', 'error');
-            console.error('Send OTP error:', textStatus, errorThrown);
-        }).always(function() {
-            $sendBtn.prop('disabled', false);
+          url: sendOtpUrl,
+          method: 'POST',
+          data: { mobile, email, _token: csrfToken },
+          dataType: 'json'
+        }).done(function (data) {
+          if (data && data.success) {
+            showMsg(data.message || 'OTP sent. Check your phone/email.', 'success');
+            $otpInput.focus();
+            $verifyBtn.prop('disabled', false);
+          } else {
+            showMsg((data && data.message) ? data.message : 'Failed to send OTP. Try again.', 'error');
+          }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+          showMsg('Network error while sending OTP.', 'error');
+          console.error('Send OTP error:', textStatus, errorThrown);
+        }).always(function () {
+          $sendBtn.prop('disabled', false);
         });
+      }
+
+
+    $sendBtn.on('click', function () {
+      if (!validateFields('send')) return;
+
+      var captcha = $('#captcha_input').val().trim();
+      if (!captcha) {
+        showMsg('Please enter CAPTCHA before sending OTP.', 'error');
+        return;
+      }
+
+      // Verify captcha first
+      $.ajax({
+        url: "{{ route('verify.captcha') }}", // 👈 you’ll create this route
+        method: 'POST',
+        data: {
+          captcha: captcha,
+          _token: csrfToken
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            sendOtp(); // 👈 call actual OTP send logic
+          } else {
+            showMsg(response.message || 'Invalid CAPTCHA entered.', 'error');
+            $('#captcha_input').val('').focus();
+            $('#reload-captcha').click(); // refresh on fail
+          }
+        },
+        error: function () {
+          showMsg('Error verifying CAPTCHA.', 'error');
+        }
+      });
     });
+
 
     // VERIFY OTP
     $verifyBtn.on('click', function () {
-        if (!validateFields('verify')) return;
+      if (!validateFields('verify')) return;
 
-        var otp = $otpInput.val().trim();
-        if (!otp) {
-            showMsg('Enter OTP to verify.', 'error');
-            return;
+      var otp = $otpInput.val().trim();
+      if (!otp) {
+        showMsg('Enter OTP to verify.', 'error');
+        return;
+      }
+
+      var mobile = $('input[name="mobile_no"]').val() || '';
+      var email = $('input[name="email"]').val() || '';
+      // var policy = $('input[name="policy"]').val() || '';
+
+      showMsg('Verifying OTP...');
+      $verifyBtn.prop('disabled', true);
+
+      $.ajax({
+        url: verifyOtpAjaxUrl,
+        method: 'POST',
+        data: { otp, mobile, email, _token: csrfToken },
+        dataType: 'json'
+      }).done(function (data) {
+        if (data && data.success) {
+          showMsg(data.message || 'OTP verified.', 'success');
+          $otpVerifiedField.val('1');
+          $createBtn.show().prop('disabled', false);
+          $sendBtn.prop('disabled', true);
+          $verifyBtn.prop('disabled', true);
+          $otpInput.prop('readonly', true);
+        } else {
+          showMsg((data && data.message) ? data.message : 'OTP verification failed.', 'error');
         }
-
-        var mobile = $('input[name="mobile_no"]').val() || '';
-        var email = $('input[name="email"]').val() || '';
-        var policy = $('input[name="policy"]').val() || '';
-
-        showMsg('Verifying OTP...');
-        $verifyBtn.prop('disabled', true);
-
-        $.ajax({
-            url: verifyOtpAjaxUrl,
-            method: 'POST',
-            data: { otp, mobile, email, policy, _token: csrfToken },
-            dataType: 'json'
-        }).done(function(data) {
-            if (data && data.success) {
-                showMsg(data.message || 'OTP verified.', 'success');
-                $otpVerifiedField.val('1');
-                $createBtn.show().prop('disabled', false);
-                $sendBtn.prop('disabled', true);
-                $verifyBtn.prop('disabled', true);
-                $otpInput.prop('readonly', true);
-            } else {
-                showMsg((data && data.message) ? data.message : 'OTP verification failed.', 'error');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            showMsg('Network error while verifying OTP.', 'error');
-            console.error('Verify OTP error:', textStatus, errorThrown);
-        }).always(function() {
-            // $verifyBtn.prop('disabled', false);
-        });
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        showMsg('Network error while verifying OTP.', 'error');
+        console.error('Verify OTP error:', textStatus, errorThrown);
+      }).always(function () {
+        // $verifyBtn.prop('disabled', false);
+      });
     });
 
     // Prevent submit unless OTP verified
-    $('form').on('submit', function (e) {
-        if ($otpVerifiedField.val() !== '1') {
-            e.preventDefault();
-            showMsg('Please verify OTP before creating account.', 'error');
-            $otpInput.focus();
-            return false;
-        }
+    // $('form').on('submit', function (e) {
+    //   if ($otpVerifiedField.val() !== '1') {
+    //     e.preventDefault();
+    //     showMsg('Please verify OTP before creating account.', 'error');
+    //     $otpInput.focus();
+    //     return false;
+    //   }
+    // });
+
+    $('#select_all_chemicals').on('change', function () {
+    var isChecked = $(this).is(':checked');
+    $('.chemical-checkbox').prop('checked', isChecked);
+  });
+
+  // Optional: if any chemical is manually unchecked, uncheck "Select All"
+  $('.chemical-checkbox').on('change', function () {
+    if ($('.chemical-checkbox:checked').length !== $('.chemical-checkbox').length) {
+      $('#select_all_chemicals').prop('checked', false);
+    } else {
+      $('#select_all_chemicals').prop('checked', true);
+    }
+  });
+
+  // On page load: auto-check "Select All" if all checkboxes were restored as checked
+  if ($('.chemical-checkbox:checked').length === $('.chemical-checkbox').length) {
+    $('#select_all_chemicals').prop('checked', true);
+  }
+
+  $('#reload-captcha').click(function () {
+    var refreshCapcthaUrl = "{{ route('refresh.capctha') }}";
+        $.ajax({
+            type: 'GET',
+            url: refreshCapcthaUrl,
+            success: function (data) {
+                $('#captcha-img').attr('src', data.captcha + '?' + Date.now()); // Force no-cache
+            },
+            error: function (xhr, status, error) {
+                console.error('Captcha reload failed:', error);
+            }
+        });
     });
-});
+  });
+
+  $('#stateDropdown').on('change', function () {
+    var stateCode = $(this).val();
+    //  console.log("Element count:", $('#stateDropdown').length);
+    // console.log($(this).val(),1);
+    $('#districtDropdown').html('<option value="">Loading...</option>');
+    if (stateCode) {
+      console.log(stateCode,1);
+      $.ajax({
+        url: '{{ route("get.districts.by.state") }}',
+        type: 'GET',
+        data: { state_code: stateCode },
+        success: function (response) {
+          var options = '<option value="">-- Select District --</option>';
+          $.each(response, function (key, district) {
+            options += '<option value="' + district.id + '">' + district.district_name + '</option>';
+          });
+          $('#districtDropdown').html(options);
+        },
+        error: function () {
+          $('#districtDropdown').html('<option value="">Error loading districts</option>');
+        }
+      });
+    } else {
+      $('#districtDropdown').html('<option value="">-- Select District --</option>');
+    }
+  });
+
+  // validation
+
+  $('#password').bind("cut copy paste",function(e) {
+      e.preventDefault();
+  });
+    const maxLengths = {
+        authorised_person_email: 100,
+        industry_email: 100,
+        industry_name: 400,
+        mobile_no: 15,
+        username: 30,
+        locality: 200,
+        pan_no: 10,
+        company_gst: 15,
+        industry_pincode: 6,
+    };
+
+    const patterns = {
+        authorised_person_email: /^[a-zA-Z0-9._@-]+$/,
+        industry_email: /^[a-zA-Z0-9._@-]+$/,
+        industry_name: /^[a-zA-Z\s'-]*$/,
+        mobile_no: /^[0-9+]*$/,
+        username: /^[a-zA-Z0-9_-]*$/,
+        website: /^[a-zA-Z0-9.:/?&=_-]*$/,
+        locality: /^[a-zA-Z0-9\s.,#:/()-]*$/,
+        pan_no: /^[A-Z0-9]*$/,
+        company_gst: /^[A-Z0-9]$/,
+        industry_pincode: /^[0-9]*$/,
+    };
+
+    const fields = Object.keys(maxLengths);
+
+    fields.forEach(function (field) {
+        const $input = $('#' + field);
+        const $errorEl = $('#' + field + '_error');
+
+        // Keypress restriction
+        $input.on('keypress', function (e) {
+            const char = String.fromCharCode(e.which);
+            if (!patterns[field].test(char)) {
+                e.preventDefault();
+            }
+        });
+
+        // Paste restriction
+        $input.on('paste', function (e) {
+            const pasteData = e.originalEvent.clipboardData.getData('text');
+            if (!patterns[field].test(pasteData) || pasteData.length > maxLengths[field]) {
+                e.preventDefault();
+                if ($errorEl.length) {
+                    $errorEl.text('Pasted content contains invalid characters or is too long.');
+                }
+            }
+        });
+
+        // Blur/change validation
+        $input.on('blur change', function () {
+            const val = $input.val().trim();
+            if ($errorEl.length) $errorEl.text('');
+
+            if (val.length > maxLengths[field]) {
+                $errorEl.text('Input is too long.');
+            } else if (!patterns[field].test(val)) {
+                $errorEl.text('Invalid characters used.');
+            }
+
+            // Extra email-specific validation
+            if (field === 'industry_email') {
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailPattern.test(val)) {
+                    $errorEl.text('Please enter a valid email address.');
+                } else if (val.includes('..') || val.split('@').length !== 2) {
+                    $errorEl.text('Invalid email format.');
+                }
+            }
+            if (field === 'authorised_person_email') {
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailPattern.test(val)) {
+                    $errorEl.text('Please enter a valid email address.');
+                } else if (val.includes('..') || val.split('@').length !== 2) {
+                    $errorEl.text('Invalid email format.');
+                }
+            }
+        });
+    });
+
+
+  
+// });
+  //  $('#stateDropdown').on('change', function () {
+  //   var stateCode = $(this).val();
+  //   console.log(stateCode);
+  //   $('#districtDropdown').html('<option value="">Loading...</option>');
+
+  //   if (stateCode) {
+  //     $.ajax({
+  //       url: '{{ route("get.districts.by.state") }}', // You'll define this route in web.php
+  //       type: 'GET',
+  //       data: { state_code: stateCode },
+  //       success: function (response) {
+  //         var options = '<option value="">-- Select District --</option>';
+  //         $.each(response, function (key, district) {
+  //           options += '<option value="' + district.id + '">' + district.district_name + '</option>';
+  //         });
+  //         $('#districtDropdown').html(options);
+  //       },
+  //       error: function () {
+  //         $('#districtDropdown').html('<option value="">Error loading districts</option>');
+  //       }
+  //     });
+  //   } else {
+  //     $('#districtDropdown').html('<option value="">-- Select District --</option>');
+  //   }
+  // });
 </script>
 <!-- @include('home.footer') -->
-
-

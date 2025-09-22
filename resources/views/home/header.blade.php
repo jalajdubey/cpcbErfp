@@ -115,6 +115,8 @@ img, video {
 <link href="{{ asset('assets/css/kaiadmin.min.css') }}" rel="stylesheet" type="text/css">
 
 <link href="{{ asset('assets/css/plugins.min.css') }}" rel="stylesheet" type="text/css">
+{{-- <script href="{{ public_path('assets/js/jquery-3.7.1.min.js') }}"></script> --}}
+
 
 
      <div class="top-header-box">
@@ -176,11 +178,15 @@ img, video {
   <div class="d-flex align-items-center gap-3">
     
     <!-- Button 1 -->
-    <button type="button" class="btn border-0 fw-bold px-3" style="font-size:20px">
-        <a href="{{ route('policy.check.form') }}" class="custom-login-btn">
-      Sign up
-        </a>
-    </button>
+    <div class="dropdown">
+      <button class="btn border-0 fw-bold px-3 dropdown-toggle" type="button" id="signupDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;">
+        Sign up
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+        <li><a class="dropdown-item" href="{{ route('policy.check.form') }}">Industry</a></li>
+        <li><a class="dropdown-item" href="">Policy Company</a></li>
+      </ul>
+    </div>
 
     <!-- Vertical Separator -->
     <div style="width: 1px; height: 24px; background-color: #ccc;"></div>

@@ -1,4 +1,18 @@
-@include('home.header')
+<style>
+  h5 {
+    color: linear-gradient(269.87deg, #084095 2.99%, #108e16 96.59%);
+  }
+
+  h3 {
+    color: linear-gradient(269.87deg, #084095 2.99%, #108e16 96.59%);
+  }
+  
+</style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@include('layouts.header')
+
+@include('layouts.sidebar')
+@include('layouts.top-navbar')
 
 
 <div class="container mb-5" style="max-width:560px;">
@@ -28,14 +42,65 @@
     <div id="preview" class="border rounded p-3 d-none">
         <h6 class="mb-2">Policy Details</h6>
         <div><strong>Policy:</strong> <span id="pv_policy"></span></div>
-        <div><strong>Industry:</strong> <span id="pv_industry"></span></div>
-        <div><strong>Address:</strong> <span id="pv_addr"></span></div>
+        <div><strong>Insurance Company Name:</strong> <span id="pv_insurance_name"></span></div>
+        <div><strong>Start Date:</strong> <span id="pv_start_date"></span></div>
+        <div><strong>End Date:</strong> <span id="pv_end_date"></span></div>
+        <div><strong>ERFO Amount:</strong> <span id="pv_erpo_amount"></span></div>
         <button id="goRegisterBtn" class="btn btn-success mt-3 d-none">Go to Registration</button>
     </div>
+
+
+
+    <!-- Policy details card -->
+        {{-- <div class="card mb-4">
+          <div class="card-body policy-header p-3">
+            <div class="d-flex align-items-center gap-3">
+              <div>
+                <h5 class="mb-0"><span class="form-section-number">Policy details</h5>
+                <small class="small-muted">Auto-filled from policy</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Policy Number</label>
+                <input class="form-control underline-only" value="{{ $policyData->policy_number }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Industry Name</label>
+                <input class="form-control underline-only" value="{{ $policyData->name_of_insured_owner }}" readonly>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Insured Company ID</label>
+                <input class="form-control underline-only" value="{{ $policyData->insured_company_id }}" readonly>
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label">Address</label>
+                <input class="form-control underline-only"
+                  value="{{ trim(($policyData->address ?? '') . ' ' . ($policyData->address_line2 ?? '')) }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">City</label>
+                <input class="form-control underline-only" value="{{ $policyData->territorial_limits_district }}" readonly>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">State</label>
+                <input class="form-control underline-only" value="{{ $policyData->territorial_limits_state }}" readonly>
+              </div>
+            </div>
+          </div>
+        </div> --}}
 </div>
 
 
-@push('scripts')
+{{-- @push('scripts') --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -65,14 +130,22 @@ $(document).ready(function() {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
             },
             success: function(data, textStatus, jqXHR) {
+                // console.log("Ajax Success Data:", data);
+                // alert('hello');
+                 // Clear previous alert messages
+                alertBox.removeClass().addClass('alert d-none');
+
                 if (!data.ok) {
                     alertBox.removeClass().addClass('alert alert-danger').text(data.message || 'Policy not found.');
                     return;
                 }
-
+                
                 // success - show preview
                 $('#pv_policy').text(data.data.policy_number);
-                $('#pv_industry').text(data.data.industry_name ?? '-');
+                $('#pv_insurance_name').text(data.data.insurance_company_name ?? '-');
+                $('#pv_start_date').text(data.data.policy_start_date ?? '-');
+                $('#pv_end_date').text(data.data.policy_end_date ?? '-');
+                $('#pv_erpo_amount').text(data.data.erfo_amount ?? '-');
                 const addr = [
                     data.data.address_line1,
                     data.data.address_line2,
@@ -151,7 +224,7 @@ document.getElementById('ajaxVerifyBtn').addEventListener('click', async functio
     }
 });
 </script> -->
-@endpush
+{{-- @endpush --}}
 
 
 
