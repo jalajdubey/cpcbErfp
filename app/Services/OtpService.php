@@ -54,13 +54,13 @@ class OtpService
 // }
 
 
-public function RegGenerateAndSendOtp($mobile_no, $email, $policy)
+public function RegGenerateAndSendOtp($mobile_no, $email)
 {
     // Generate random 6-digit OTP
     $otp = rand(100000, 999999);
     // $mobileno=$mobile_no;
 
-	 $cacheKey = "otp_" . md5($mobile_no . $email . $policy);
+	 $cacheKey = "otp_" . md5($mobile_no . $email);
 
      // Encrypt OTP before storing in DB
      $encryptedOtp = Crypt::encryptString($otp);
@@ -83,7 +83,7 @@ public function RegGenerateAndSendOtp($mobile_no, $email, $policy)
     // 2. Send OTP on Mobile (plain)
     try {
 		if(isset($mobile_no)&& $mobile_no!=''){
-			$this->send_sms_otp_direct( $mobile_no, $otp);
+			$this->send_registersms_otp_direct( $mobile_no, $otp);
 			return true;
 		}else{
 			return false;
@@ -99,9 +99,9 @@ public function RegverifyOtp(Request $request){
        $otp     = $request->input('otp');
         $mobile  = $request->input('mobile');
         $email   = $request->input('email');
-        $policy  = $request->input('policy');
+        // $policy  = $request->input('policy');
 
-        $cacheKey = "otp_" . md5($mobile . $email . $policy);
+        $cacheKey = "otp_" . md5($mobile . $email);
 
         $cachedOtp = Cache::get($cacheKey);
 
@@ -286,6 +286,34 @@ public function verifyOtp($user, $inputOtp)
 		// print_r($result); //output from server displayed
 		curl_close($post);
 		return $result;
+	}
+
+    public function send_registersms_otp_direct($mobileno, $otp)
+	{
+
+		//$mobileno = $mobile;
+		$registerid = "2";
+		
+		$message = "Dear User, Your OTP for signing up on the ERF Portal is " . $otp . ". Please enter this code to proceed with the signup process. Do not share this OTP with anyone. Regards, CPCB.";
+		$templateid = "1307175756913653914";
+		$secure_key = "c85e39a181e7b904f784c018c4042ede";
+		$entity_id = "1301158798803147760";
+		$username = "CPCB_IT";
+		$password = "Cpcbsms#2020";
+		$senderid = "CPCBMN";
+		//$deptSecureKey = "51920f80-bc87-4d53-adaa-fb0226f47fa4";
+		$deptSecureKey = "106a9ed9-00c4-442d-a857-3447d308c9d9";
+		$encryp_password = sha1(trim($password));
+
+		if ($message == "" || $mobileno == "" || $templateid == "") {
+
+			// $this->session->set_flashdata('error', 'All the fields are mandatory.');
+			return false;
+		} else {
+
+			$result = $this->sendSingleSMS($username, $encryp_password, $senderid, $message, $mobileno, $deptSecureKey, $templateid, $otp, $registerid, $entity_id); // calling sendSingleSMS to configuire the sms settings
+			return $result;
+		}
 	}
 
 

@@ -128,11 +128,11 @@
 </div>
 </div>
 <!------modalpoup---->
-<x-industry-registration-details ::users="$users"/>
+{{-- <x-industry-registration-details ::users="$users"/> --}}
 <!-- Modal -->
 
 
-
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
   <script>
   // Count-up animation
   document.querySelectorAll('.count').forEach((el) => {

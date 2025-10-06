@@ -10,6 +10,7 @@ use App\Models\ApiKey;
 use App\Models\DocumentsFile;
 use App\Models\UploadedDocument;
 use App\Models\BackupUploadedDocument;
+use App\Models\IndustryChemical;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -21,18 +22,17 @@ use App\Models\PolicyLookupLog;
 use App\Services\PolicyUpdateService;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Arr;
 
 class Insurance extends Controller
 {
 
 
-
-
-
     public function policydata(Request $request): JsonResponse
     {
-        //$records = $this->decryptPayload($request->input('records'));
+        //$records = $request->input('records');
 
+        //added at 25-8-2025
         $recordsInput = $request->input('records');
         // dd($recordsInput);
         if (is_string($recordsInput)) {
@@ -42,6 +42,7 @@ class Insurance extends Controller
             // already plain array/object
             $records = $recordsInput;
         }
+        //end at 25-8-2025
 
         if (!is_array($records)) {
             return response()->json([
@@ -75,12 +76,18 @@ class Insurance extends Controller
 
         DB::beginTransaction();
         $errors = [];
+        $utrDateMap = []; // Initialize to track UTR and dates
 
         foreach ($records as $index => $record) {
+
+            // ✅ Normalize hazardous_chemicals before validation using Arr::wrap
+            $hazardous_chemicals = Arr::wrap($record['hazardous_chemicals'] ?? []);
+            $record['hazardous_chemicals'] = $hazardous_chemicals;
+
             $validator = Validator::make($record, [
-                'insured_company_id' => 'nullable|string|max:255|regex:/^[A-Za-z0-9\s,;\/\\\\]+$/',
-                'name_of_insurance_company' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
-                'name_of_insured_owner' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
+                'insured_company_id' => 'nullable|string|max:255|regex:/^[A-Za-z0-9\/\-]+$/',
+                'name_of_insurance_company' => 'required|string|max:255|regex:/^[A-Za-z\s,\/]+$/',
+                'name_of_insured_owner' => 'required|string|max:255|regex:/^[A-Za-z\s,\/]+$/',
                 'business_type' => 'required|string|max:255|regex:/^[A-Za-z\s\-\/]+$/',
                 'address' => 'required|string|max:255|regex:/^[A-Za-z0-9\s\/\-,\"\'\;]+$/',
                 'territorial_limits_district' => 'required|string|max:255|regex:/^[A-Za-z0-9\s&]+$/',
@@ -89,33 +96,72 @@ class Insurance extends Controller
                 'paid_up_capital_cr' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'policy_duration_year' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'policy_valid_upto' => 'required|date_format:Y-m-d|after_or_equal:2025-12-31',
-                // 'indemnity_limit_rs' => 'numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'indemnity_limit_rs' => 'nullable|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'premium_without_tax_rs' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'contribution_to_erf_rs' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
-                // 'any_one_year_limit_rs' => 'numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
-                // 'any_one_accident_limit_rs' => 'numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'any_one_year_limit_rs' => 'nullable|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'any_one_accident_limit_rs' => 'nullable|numeric|min:0|regex:/^\d+(\.\d{1,3})?$/',
                 'erf_deposit_utr_no' => 'required|string|max:255|regex:/^[A-Za-z0-9\/\-]+$/',
                 'date_of_proposal' => 'required|date_format:Y-m-d',
                 'date_of_erf_payment' => 'required|date_format:Y-m-d|after_or_equal:2025-01-01',
-                'pan_of_company' => 'required|string|max:20|regex:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i',
-                'gst_of_company' => 'required|string|max:20|regex:/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/',
+                'pan_of_company' => 'nullable|string|max:10',
+                'gst_of_company' => 'nullable|string|max:15',
                 'email_of_company' => 'nullable|email|max:255',
                 'mobile_of_company' => 'nullable|string|min:10|max:16|regex:/^[0-9]+$/',
                 'policy_number' => 'required|string|max:255|regex:/^[A-Za-z0-9\/\-]+$/|unique:industry_master_data,policy_number',
                 'date_of_policy' => 'required|date_format:Y-m-d|after_or_equal:2025-01-01',
+                'hazardous_chemicals' => 'required|array|min:1',
+                'hazardous_chemicals.*.id' => 'integer|exists:chemical_stored_lists,id',
+                'hazardous_chemicals.*.quantity' => 'numeric',
+                'hazardous_chemicals.*.unit' => 'string',
+                'dc_address_under_territorial_limit_where_chemicals_falls' => 'required|string|max:255',
+                'insurer_payment_date_to_insurance_company' => 'required|date_format:Y-m-d|after_or_equal:2025-01-01|before_or_equal:today',
+                'date_of_declaration' => 'required|date_format:Y-m-d',
+                'payment_mode' => 'required|string|in:NEFT,RTGS,UPI,CHEQUE,CASH,DD,CARD',
             ]);
 
             //addded at 9/6/2025
             $validator->after(function ($validator) use ($record) {
+
+                $allowedUnits = ['kg', 'ton'];  // define allowed units
+                $hazardous_chemicals = $record['hazardous_chemicals'] ?? [];
+                $seenChemicalIds = [];
+
+                foreach ($hazardous_chemicals as $index => $chemical) {
+                    $id = $chemical['id'] ?? null;
+                    $quantity = $chemical['quantity'] ?? null;
+                    $unit = $chemical['unit'] ?? null;
+
+                    // ✅ Check for duplicate IDs
+                    if (in_array($id, $seenChemicalIds)) {
+                        $validator->errors()->add("hazardous_chemicals.$index.id", "Duplicate chemical ID '{$id}' found at index $index. Each ID must be unique.");
+                    } else {
+                        $seenChemicalIds[] = $id;
+                    }
+
+                    if (is_null($id)) {
+                        $validator->errors()->add("hazardous_chemicals.$index.id", "Chemical ID at index $index is required.");
+                    }
+
+                    if (!is_numeric($quantity) || $quantity <= 0) {
+                        $validator->errors()->add("hazardous_chemicals.$index.quantity", "Quantity at index $index must be a number greater than 0.");
+                    }
+
+                    if (empty($unit)) {
+                        $validator->errors()->add("hazardous_chemicals.$index.unit", "Unit at index $index is required.");
+                    } elseif (!in_array(strtolower($unit), $allowedUnits)) {
+                        $validator->errors()->add("hazardous_chemicals.$index.unit", "Unit '{$unit}' at index $index is invalid. Allowed: " . implode(', ', $allowedUnits));
+                    }
+                }
+
                 $indemnity = isset($record['indemnity_limit_rs']) ? trim((string) $record['indemnity_limit_rs']) : null;
                 $year = isset($record['any_one_year_limit_rs']) ? trim((string) $record['any_one_year_limit_rs']) : null;
                 $accident = isset($record['any_one_accident_limit_rs']) ? trim((string) $record['any_one_accident_limit_rs']) : null;
                 $proposalDate = $record['date_of_proposal'] ?? null;
                 $policyDate = $record['date_of_policy'] ?? null;
                 $erfPaymentDate = $record['date_of_erf_payment'] ?? null;
+                $insurer_payment_date = $record['insurer_payment_date_to_insurance_company'] ?? null;
+                $date_of_declaration = $record['date_of_declaration'] ?? null;
 
                 $hasIndemnity = $indemnity !== '' && is_numeric($indemnity);
                 $hasYear = $year !== '' && is_numeric($year);
@@ -135,8 +181,13 @@ class Insurance extends Controller
                 if ($erfPaymentDate && $policyDate && strtotime($erfPaymentDate) < strtotime($policyDate)) {
                     $validator->errors()->add('erf_payment_date', 'The ERF Payment Date must be the same as or after the Policy Date.');
                 }
+                if ($insurer_payment_date && strtotime($insurer_payment_date) > strtotime($erfPaymentDate)) {
+                    $validator->errors()->add('erf_payment_date', 'The Insurer Payment Date must be the same as or before the ERF Payment Date.');
+                }
+                if ($date_of_declaration && strtotime($date_of_declaration) < strtotime($proposalDate)) {
+                    $validator->errors()->add('erf_payment_date', 'The Date of Declaration must be the same as or after the date of proposal.');
+                }
             });
-
             //end 9/6/2025
 
             if ($validator->fails()) {
@@ -153,10 +204,6 @@ class Insurance extends Controller
             }
 
             //code of erf_utr number and date check at 04/6/2025
-
-
-
-
             $utr = $record['erf_deposit_utr_no'];
             $date = $record['date_of_erf_payment'];
 
@@ -165,7 +212,6 @@ class Insurance extends Controller
             } else {
                 $utrDateMap[$utr] = $date;
             }
-
 
             foreach ($utrDateMap as $utr => $date) {
                 $dbConflict = DB::table('industry_master_data')
@@ -182,16 +228,25 @@ class Insurance extends Controller
                     ];
                 }
             }
-
-
             //end above code
-
 
             $record['batch_reference'] = $batchReferenceId;
             $record['user_id'] = $userId;
 
+            $hazardous_chemicals = $record['hazardous_chemicals'] ?? null;
+            unset($record['hazardous_chemicals']);
+
             try {
-                IndustryMasterData::create($record);
+                $industry = IndustryMasterData::create($record);
+
+                foreach ($hazardous_chemicals as $chemical) {
+                    IndustryChemical::create([
+                        'industry_master_data_id' => $industry->id,
+                        'chemical_stored_lists_id' => $chemical['id'],
+                        'quantity' => $chemical['quantity'],
+                        'unit' => $chemical['unit'],
+                    ]);
+                }
             } catch (\Throwable $e) {
                 Log::channel('daily')->error("DB insert error at index $index", [
                     'exception' => $e->getMessage(),
@@ -225,7 +280,7 @@ class Insurance extends Controller
     }
 
 
-
+    //code added to encryption and decryption data
 
     public function encData(Request $request)
     {
@@ -257,6 +312,14 @@ class Insurance extends Controller
 
         return $decrypted;
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -618,8 +681,7 @@ class Insurance extends Controller
     // modify code using services at 11-6-2024
     public function updatePolicyData(Request $request, PolicyUpdateService $service): JsonResponse
     {
-        // $records = $request->input('records');
-        $records = $this->decryptPayload($request->input('records'));
+        $records = $request->input('records');
         $token = $request->header('X-API-TOKEN');
 
         return $service->process($records, $token);

@@ -10,6 +10,11 @@ class IndustryMasterData extends Model
     use HasFactory;
     protected $table = 'industry_master_data'; // Specify the table name
 
+    protected $casts = [
+        'chemicals' => 'array', // Laravel will automatically encode/decode JSON
+    ];
+
+
     protected $fillable = [
         'batch_reference',
         'insured_company_id',
@@ -38,15 +43,25 @@ class IndustryMasterData extends Model
         'mobile_of_company',
         'policy_number',
         'date_of_policy',
-        'user_id'
+        'user_id',
+        'dc_address_under_territorial_limit_where_chemicals_falls',
+        'insurer_payment_date_to_insurance_company',
+        'date_of_declaration',
+        'payment_mode',
     ];
     public function uploadedDocuments()
     {
         return $this->hasMany(UploadedDocument::class, 'policy_number', 'policy_number');
     }
 
-      public function apiKey()
-{
-    return $this->belongsTo(ApiKey::class, 'user_id', 'user_id');
-}
+    public function apiKey()
+    {
+        return $this->belongsTo(ApiKey::class, 'user_id', 'user_id');
+    }
+
+     // Define relationship to IndustryChemical
+    public function chemicals()
+    {
+        return $this->hasMany(IndustryChemical::class, 'industry_master_data_id');
+    }
 }

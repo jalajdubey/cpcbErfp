@@ -37,17 +37,25 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
+        $rules = [
             'email' => 'required|email',
             'password' => 'required',
-            'captcha' => 'required|captcha'
-        ], [
+        ];
+
+        // Only add captcha validation if not in dev environment
+        if (!env('DEV_ENVIRONMENT')) {
+            $rules['captcha'] = 'required|captcha';
+        }
+
+        $messages = [
             'captcha.required' => 'Captcha is required.',
             'captcha.captcha' => 'Captcha does not match. Please try again.'
-        ]);
+        ];
+
+        $request->validate($rules, $messages);
 
         $credentials = $request->only('email', 'password');
-      
+
 
         $email = strtolower($request->input('email'));
         $ip = $request->ip();
@@ -55,65 +63,73 @@ class AuthController extends Controller
         $cacheKey = "login_attempts:{$email}:{$ip}";
         $lockoutKey = "lockout:{$email}:{$ip}";
 
-         try {
-        if (Cache::has($lockoutKey)) {
-            $secondsRemaining = Cache::get($lockoutKey) - time();
-            $minutes = ceil($secondsRemaining / 60);
-            return back()->withErrors(['email' => "Account locked. Try again in {$minutes} minute(s)."])->withInput();
-        }
-
-        if (Auth::attempt($credentials)) {
-            $user = User::where('email', $email)->first();
-
-           if (!$user) {
-                return back()->withErrors(['email' => 'User not found.'])->withInput();
+        try {
+            if (Cache::has($lockoutKey)) {
+                $secondsRemaining = Cache::get($lockoutKey) - time();
+                $minutes = ceil($secondsRemaining / 60);
+                return back()->withErrors(['email' => "Account locked. Try again in {$minutes} minute(s)."])->withInput();
             }
 
-            // Clear failed attempts
-            Cache::forget($cacheKey);
-            Cache::forget($lockoutKey);
+            if (Auth::attempt($credentials)) {
+                $user = User::where('email', $email)->first();
 
-            // Log successful attempt
-            LoginAttempt::create([
-                'user_id' => $user->id,
-                'email' => $email,
-                'ip_address' => $ip,
-                'status' => true,
-                'attempted_at' => now(),
-            ]);
+                if (!$user) {
+                    return back()->withErrors(['email' => 'User not found.'])->withInput();
+                }
 
-            // Send OTP
-            $otpService = new OtpService();
-            $otpService->generateAndSendOtp($user); // <- uses user info here
-
-            // Save user info in session for OTP verification step
-            session([
-                'otp_user_id' => $user->id,
-                'otp_email' => $user->email,
-                'otp_verified' => false,
-            ]);
-
-            return redirect()->route('verify-otp-page'); // OTP input form
-        } else {
-            // Log failed attempt
-            LoginAttempt::create([
-                'email' => $email,
-                'ip_address' => $ip,
-                'status' => false,
-                'attempted_at' => now(),
-            ]);
-
-            $attempts = Cache::increment($cacheKey, 1);
-            Cache::put($cacheKey, $attempts, now()->addMinutes(60));
-
-            if ($attempts >= 3) {
-                Cache::put($lockoutKey, time() + 3600, now()->addMinutes(60));
+                // Clear failed attempts
                 Cache::forget($cacheKey);
-                return back()->withErrors(['email' => 'Too many login attempts. Your account has been locked for 1 hour.'])->withInput();
-            }
+                Cache::forget($lockoutKey);
 
-            return back()->withErrors(['email' => 'Invalid credentials. Attempts left: ' . (3 - $attempts)])->withInput();
-        }
+                // Log successful attempt
+                LoginAttempt::create([
+                    'user_id' => $user->id,
+                    'email' => $email,
+                    'ip_address' => $ip,
+                    'status' => true,
+                    'attempted_at' => now(),
+                ]);
+                if (!env('DEV_ENVIRONMENT')) {
+                    // Send OTP
+                    $otpService = new OtpService();
+                    $otpService->generateAndSendOtp($user); // <- uses user info here
+
+                    // Save user info in session for OTP verification step
+                    session([
+                        'otp_user_id' => $user->id,
+                        'otp_email' => $user->email,
+                        'otp_verified' => false,
+                    ]);
+
+                    return redirect()->route('verify-otp-page'); // OTP input form
+                } else {
+                    Auth::login($user);
+                    $request->session()->regenerate();
+
+                    session()->forget(['otp_user_id', 'otp_email', 'otp_verified']);
+
+                    return $this->redirectBasedOnRole();
+                }
+            } else {
+                // Log failed attempt
+                LoginAttempt::create([
+                    'email' => $email,
+                    'ip_address' => $ip,
+                    'status' => false,
+                    'attempted_at' => now(),
+                ]);
+
+                $attempts = Cache::increment($cacheKey, 1);
+                Cache::put($cacheKey, $attempts, now()->addMinutes(60));
+
+                if ($attempts >= 3) {
+                    Cache::put($lockoutKey, time() + 3600, now()->addMinutes(60));
+                    Cache::forget($cacheKey);
+                    return back()->withErrors(['email' => 'Too many login attempts. Your account has been locked for 1 hour.'])->withInput();
+                }
+
+                return back()->withErrors(['email' => 'Invalid credentials. Attempts left: ' . (3 - $attempts)])->withInput();
+            }
         } catch (\Exception $e) {
             Log::error('Login error: ' . $e->getMessage());
             return back()->withErrors(['email' => 'An unexpected error occurred. Please try again later.'])->withInput();
@@ -186,33 +202,33 @@ class AuthController extends Controller
 
 
     // public function resendOtp(Request $request)
-// {
-//     $userId = session('otp_user_id');
+    // {
+    //     $userId = session('otp_user_id');
 
     //     if (!$userId) {
-//         return response()->json(['message' => 'Session expired. Please login again.'], 401);
-//     }
+    //         return response()->json(['message' => 'Session expired. Please login again.'], 401);
+    //     }
 
     //     $user = User::find($userId);
 
     //     if (!$user) {
-//         return response()->json(['message' => 'User not found.'], 404);
-//     }
-//    $lastSent = Carbon::parse($user->last_otp_sent_at);
-//     // Optional: Throttle resend
-//    if ( $lastSent->diffInSeconds(now()) < 30) {
-//     return response()->json(['message' => 'Please wait before resending OTP.'], 429);
-// }
+    //         return response()->json(['message' => 'User not found.'], 404);
+    //     }
+    //    $lastSent = Carbon::parse($user->last_otp_sent_at);
+    //     // Optional: Throttle resend
+    //    if ( $lastSent->diffInSeconds(now()) < 30) {
+    //     return response()->json(['message' => 'Please wait before resending OTP.'], 429);
+    // }
 
     //     // Resend OTP
-//     $otpService = new OtpService();
-//     $otpService->generateAndSendOtp($user);
+    //     $otpService = new OtpService();
+    //     $otpService->generateAndSendOtp($user);
 
     //     $user->last_otp_sent_at = now();
-//     $user->save();
+    //     $user->save();
 
     //     return response()->json(['message' => 'OTP has been resent.']);
-// }
+    // }
 
 
     /**
