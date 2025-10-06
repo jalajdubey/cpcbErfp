@@ -272,6 +272,51 @@ public function showPolicy($policyNumber)
     $erfAmounts = $erfData->pluck('total_erf');
     $erfTotal   = $erfAmounts->sum();
 
+
+    //added by jalaj on 23-09-20258
+     $industryByCompany = IndustryMasterData::select(
+        'name_of_insurance_company',
+        DB::raw('COUNT(DISTINCT insured_company_id) as industries_count'),
+        DB::raw('SUM(contribution_to_erf_rs) as total_erf')
+    )
+    ->groupBy('name_of_insurance_company')
+    ->orderByDesc('industries_count')
+    ->get();
+
+    // Labels as short codes
+    $companyLabels = $industryByCompany->map(function ($row) {
+        return collect(explode(' ', $row->name_of_insurance_company))
+            ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+            ->implode('');
+    });
+
+    // Values
+    $companyIndustries = $industryByCompany->pluck('industries_count');
+    $companyErf = $industryByCompany->pluck('total_erf');
+
+    // Month-wise policies taken with amount
+        $monthlyPolicies = IndustryMasterData::selectRaw("
+        YEAR(date_of_policy) as year,
+        MONTH(date_of_policy) as month,
+        COUNT(DISTINCT policy_number) as total_policies,
+        SUM(contribution_to_erf_rs) as total_amount
+    ")
+    ->groupBy('year', 'month')
+    ->orderBy('year')
+    ->orderBy('month')
+    ->get();
+
+    $months = [];
+    $policyCounts = [];
+    $policyAmounts = [];
+
+    foreach ($monthlyPolicies as $row) {
+        $monthName = date("M", mktime(0, 0, 0, $row->month, 1));
+        $months[] = $monthName . " " . $row->year;
+        $policyCounts[] = $row->total_policies;
+        $policyAmounts[] = round($row->total_amount / 100000, 2); // convert to Lacs
+    }
+
     return view('admin.dashboard', compact(
         'users',
         'userRoles',
@@ -283,7 +328,13 @@ public function showPolicy($policyNumber)
         'industryCounts',
         'erfLabels',
         'erfAmounts',
-        'erfTotal'
+        'erfTotal',
+        'companyLabels',
+        'companyIndustries',
+        'companyErf',
+        'months',
+        'policyCounts',
+        'policyAmounts'
     ));
 
     }
