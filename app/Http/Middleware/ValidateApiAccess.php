@@ -215,23 +215,32 @@ class ValidateApiAccess
 
     public function handle(Request $request, Closure $next): Response
     {
-        try {
-            // Step 1: Get client IP (prefer X-Forwarded-For if present)
-            $forwardedFor = $request->header('X-Forwarded-For');
-            if ($forwardedFor) {
-                $ips = array_map('trim', explode(',', $forwardedFor));
-                $clientIp = $ips[0]; // first IP = real client
-            } else {
-                $clientIp = $request->ip();
-            }
-        } catch (\Exception $e) {
-            $this->logRequest($request, 'IP_FETCH_ERROR', null, $e->getMessage());
+        // Step 2: Get Public client IP
+        // try {
+        //     // Step 1: Get client IP (prefer X-Forwarded-For if present)
+        //     $forwardedFor = $request->header('X-Forwarded-For');
+        //     if ($forwardedFor) {
+        //         $ips = array_map('trim', explode(',', $forwardedFor));
+        //         $clientIp = $ips[0]; // first IP = real client
+        //     } else {
+        //         $clientIp = $request->ip();
+        //     }
+        // } catch (\Exception $e) {
+        //     $this->logRequest($request, 'IP_FETCH_ERROR', null, $e->getMessage());
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Error fetching IP: ' . $e->getMessage()
+        //     ], 500);
+        // }
+
+        //above lines are commented by jalaj on 29-09-2025
+        $clientIp = $this->getClientIp($request);
+        if ($clientIp === "UNKNOWN_CLIENT_IP" || $clientIp === "UNKNOWN_CLIENT_IP_ERROR") {
             return response()->json([
                 'success' => false,
-                'message' => 'Error fetching IP: ' . $e->getMessage()
-            ], 500);
+                'message' => 'Client IP could not be determined. Please check proxy settings.'
+            ], 400);
         }
-
         // Step 2: Get API token
         $apiKey = $request->header('X-API-TOKEN');
         if (!$apiKey) {
@@ -297,5 +306,36 @@ class ValidateApiAccess
             'user_id'    => $userId,
             'user_agent' => $request->userAgent(),
         ]);
+    }
+
+    //by jalaj on 29-09-2025 for getting only public ip of client
+    protected function getClientIp($request)
+    {
+        try {
+            $forwardedFor = $request->header('X-Forwarded-For');
+
+            if ($forwardedFor) {
+                $ips = array_map('trim', explode(',', $forwardedFor));
+
+                foreach ($ips as $ip) {
+                    // Accept only public IPs
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                        return $ip;
+                    }
+                }
+            }
+            // Fallback: direct connection IP
+            $clientIp = $request->ip();
+            // If even that is private / invalid
+            if (!filter_var($clientIp, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                return "UNKNOWN_CLIENT_IP";
+            }
+            return $clientIp;
+        } catch (\Exception $e) {
+            // Log if you want
+            $this->logRequest($request, 'IP_FETCH_ERROR', null, $e->getMessage());
+            return "UNKNOWN_CLIENT_IP_ERROR";
+        }
+              
     }
 }
