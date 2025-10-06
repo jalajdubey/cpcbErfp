@@ -217,7 +217,114 @@
 
   </div>
  </div>
+   <div class="row mt-4">
+    <!-- Bar chart -->
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h5 class="text-center mb-3" style="color:#084095;font-weight:bold;">
+                Industries Insured per Insurance Company
+            </h5>
+            <canvas id="policyChart" height="140"></canvas>
+        </div>
+    </div>
+
+    <!-- Pie chart -->
+    <div class="col-md-6">
+        <div class="card p-4 text-center">
+            <h5 class="mb-3" style="color:#084095;font-weight:bold;">
+                ERF Contribution by Insurance Company
+            </h5>
+            <canvas id="erfChart" height="160"></canvas>
+            <div id="erfTotalValue"
+                 style="margin-top:15px; font-size: 18px; font-weight: bold; color:#084095;">
+                 Total ERF: ₹ {{ number_format($erfTotal, 2) }}
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+<!-- this line of code added by jalaj on 16-09-2025 -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+// ---- Bar Chart ----
+const labels = @json($labels);
+const industryCounts = @json($industryCounts);
+
+const ctx1 = document.getElementById('policyChart');
+if (ctx1) {
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: @json($labels),
+            datasets: [{
+                label: 'Industries Insured',
+                data: @json($industryCounts),
+                backgroundColor: '#0d6efd'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: { display: true, text: 'Industries Insured per Insurance Company' }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,  // ✅ force 0,1,2,3,4
+                        precision: 0,
+                        callback: function(value) {
+                            return value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+
+    // ---- Pie Chart ----
+    const erfLabels = @json($erfLabels);
+    const erfAmounts = @json($erfAmounts);
+
+    const ctx2 = document.getElementById('erfChart');
+    if (ctx2) {
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: erfLabels,
+                datasets: [{
+                    data: erfAmounts,
+                    backgroundColor: [
+                        '#0d6efd', '#198754', '#fd7e14', '#dc3545',
+                        '#20c997', '#ffc107', '#6c757d', '#6610f2'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }, // ❌ hide color tickets
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let value = context.raw;
+                                let total = context.chart._metasets[0].total;
+                                let percentage = ((value / total) * 100).toFixed(1);
+                                return '₹ ' + value.toLocaleString() + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
 
 
 

@@ -8,6 +8,12 @@
     "devDependencies": {
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
-        "vite": "^5.0.0"
+        "vite": "^7.1.5"
+    },
+    "dependencies": {
+        "chart.js": "^4.5.0",
+        "chartjs-chart-treemap": "^3.1.0",
+        "chartjs-plugin-datalabels": "^2.2.0",
+        "chartjs-plugin-labels": "^1.1.0"
     }
 }
