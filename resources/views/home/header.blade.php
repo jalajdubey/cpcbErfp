@@ -179,11 +179,11 @@ img, video {
     
     <!-- Button 1 -->
     <div class="dropdown">
-      <button class="btn border-0 fw-bold px-3 dropdown-toggle" type="button" id="signupDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;">
+      <button class="btn border-0 fw-bold px-4 py-2 dropdown-toggle" type="button" id="signupDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;">
         Sign up
       </button>
-      <ul class="dropdown-menu" aria-labelledby="signupDropdown">
-        <li><a class="dropdown-item" href="{{ route('policy.check.form') }}">Industry</a></li>
+      <ul class="dropdown-menu shadow" aria-labelledby="signupDropdown">
+        <li><a class="dropdown-item" href="{{ route('industry.register') }}">Industry</a></li>
         <li><a class="dropdown-item" href="">Policy Company</a></li>
       </ul>
     </div>

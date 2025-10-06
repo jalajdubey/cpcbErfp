@@ -38,7 +38,7 @@ Route::get('/faqM', [HomeController::class, 'faqpage'])->name('faqM');
 //Route::post('register', [AuthController::class, 'register'])->name('register');
 //start registration at 26/8/2025
 
-Route::get('/policy-check', [RegisterController::class, 'showPolicyForm'])->name('policy.check.form');
+Route::get('/policy-check', [RegisterController::class, 'showPolicyForm'])->name('industry.register');
 Route::post('/policy-check', [RegisterController::class, 'verifyPolicy'])->name('policy.check.verify');
 Route::post('/policy-check/ajax', [RegisterController::class, 'ajaxPolicyLookup'])->name('policy.check.ajax');
 

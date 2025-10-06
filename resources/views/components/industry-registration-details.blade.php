@@ -293,7 +293,7 @@ $(document).ready(function() {
 <script>
 $(function () {
     // Alert test
-    alert(10);
+    // alert(10);
 
     // Blade routes with placeholder for district URL
     const statesUrl = "{{ route('states') }}";

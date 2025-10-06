@@ -5,12 +5,6 @@
     font-family: 'Segoe UI', Roboto, sans-serif;
   }
 
-  .card {
-    border: 0.5px solid #08921bff;
-    border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-  }
-
   .card-body {
     padding: 1.5rem;
   }
@@ -119,19 +113,26 @@
   background-color: #fff;
   margin-bottom: 1.5rem;
   padding: 0;
+  overflow: hidden; /* Ensure curves are not hidden */
 }
 
 .card-header {
-  background-image: linear-gradient(#023b0e, #086f1e);
-  padding: 1rem 1.25rem;
+  /* background-image: linear-gradient(#023b0e, #086f1e); */
+  background: linear-gradient(45deg, #108e16, #084095) !important;
+  padding: 0.00005rem 0.25rem;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   border-bottom: 1px solid #dbeafe;
 }
+.card .card-header, .card-light .card-header {
+    padding: 0.5rem 1.25rem;
+    background-color: transparent;
+    border-bottom: 1px solid #ebecec !important;
+}
 
 .card-header h5 {
   margin-bottom: 0;
-  font-weight: 600;
+  font-weight: 500;
   color: #f7f8fa;
 }
 
@@ -198,6 +199,15 @@
     cursor: pointer;
     border: 0.01px solid #007bff; /* Change to your preferred color */
     box-shadow: 0 0 2px rgba(0, 123, 255, 0.6); /* Light glow effect */
+}
+.mb-0 {
+    font-size: 1.5rem;
+}
+.bg-success {
+    background-color: #ce3179a3 !important;
+}
+.badge{
+  font-size: 16px
 }
 </style>
 
@@ -273,20 +283,25 @@
             <div class="row g-3">
               <div class="col-md-4">
                 <label class="form-label required">Industry Name</label>
-                <input type="text" name="industry_name" class="form-control underline-only" maxlength="400" autocomplete="off" value="{{ old('industry_name') }}">
+                <input type="text" name="industry_name" class="form-control underline-only" placeholder="Name of Industry" maxlength="400" autocomplete="off" value="{{ old('industry_name') }}">
                 @error('industry_name') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
               
               <div class="col-md-4">
                 <label class="form-label required">PAN Number</label>
-                <input type="text" name="pan_no" class="form-control underline-only" required value="{{ old('pan_no') }}" maxlength="10" autocomplete="off">
+                <input type="text" name="pan_no" id="pan_no" class="form-control underline-only" required value="{{ old('pan_no') }}" placeholder="Enter PAN No." maxlength="10" autocomplete="off">
                  @error('pan_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-md-4">
                 <label class="form-label">GST Number (Optional)</label>
-                <input type="text" name="company_gst" class="form-control underline-only" value="{{ old('company_gst') }}" maxlength="15" autocomplete="off">
+                <input type="text" name="company_gst" class="form-control underline-only" value="{{ old('company_gst') }}" maxlength="15" placeholder="Enter GST No." autocomplete="off">
                 @error('company_gst') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+              <div class="col-md-4">
+                <label class="form-label required">Established Year</label>
+                <input type="number" name="estd_year" class="form-control underline-only" required value="{{ old('estd_year') }}" placeholder="Year of Establishment" maxlength="6" autocomplete="off" >
+                @error('estd_year') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
             </div>
           </div>
@@ -301,12 +316,12 @@
             <div class="row g-3">
               <div class="col-md-4">
                 <label class="form-label required">Locality</label>
-                <input type="text" name="locality" class="form-control underline-only" required value="{{ old('locality') }}" maxlength="200" autocomplete="off">
+                <input type="text" name="locality" class="form-control underline-only" required value="{{ old('locality') }}" placeholder="Enter Locality" maxlength="200" autocomplete="off">
                 @error('locality') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-md-4">
-                <label class="form-label required">State</label>
+                <label class="form-label required">State/UT</label>
                 <select name="state" id="stateDropdown" class="form-select" required>
                   <option value="">-- Select State --</option>
                   @foreach ($states as $state)
@@ -327,7 +342,7 @@
 
               <div class="col-md-4">
                 <label class="form-label required">Pincode</label>
-                <input type="number" name="industry_pincode" class="form-control underline-only" required value="{{ old('industry_pincode') }}" maxlength="6" autocomplete="off">
+                <input type="number" name="industry_pincode" class="form-control underline-only" required value="{{ old('industry_pincode') }}" placeholder="Enter Pincode" maxlength="6" autocomplete="off">
                 @error('industry_pincode') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
             </div>
@@ -336,51 +351,75 @@
 
         <!-- 3. Chemical Stored List -->
         <div class="card form-section">
-            <div class="card-header">
-              <h5 class="mb-0"><span class="form-section-number">Chemical Stored List</span></h5>
-            </div>
-            <div class="card-body">
-              <div class="mb-3">
-            <label class="form-label required">Select Chemicals</label>
+          <div class="card-header">
+            <h5 class="mb-0">
+              <span class="form-section-number">Chemical Stored List</span>
+            </h5>
+          </div>
 
-            <!-- Select All Checkbox -->
-            <div class="form-check mb-2">
-              <input type="checkbox" class="form-check-input" id="select_all_chemicals">
-              <label class="form-check-label fw-semibold" for="select_all_chemicals">
-                Select All Chemicals
-              </label>
-            </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label required">Select Chemicals</label>
 
-            <!-- Scrollable container for checkboxes -->
-            <div id="chemical_list" style="max-height: 200px; overflow-y: auto; border: 1px solid #ced4da; border-radius: 4px; padding: 10px;">
-              @forelse ($chemicals as $chemical)
-                <div class="form-check">
-                  <input 
-                    type="checkbox" 
-                    name="chemicals[]" 
-                    value="{{ $chemical->id }}" 
-                    id="chemical_{{ $chemical->id }}" 
+              <!-- Selected chemicals tags container -->
+              <div id="selected_chemicals" class="mb-3">
+                <!-- Selected chemical badges will appear here -->
+              </div>
+
+              <!-- Search box -->
+              <input
+                type="text"
+                id="chemical_search"
+                class="form-control mb-3 underline-only"
+                placeholder="Search chemicals..."
+              />
+
+              <!-- Select All Checkbox -->
+              {{-- <div class="form-check mb-2">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="select_all_chemicals"
+                />
+                <label class="form-check-label fw-semibold" for="select_all_chemicals">
+                  Select All Chemicals
+                </label>
+              </div> --}}
+
+              <!-- Scrollable container for checkboxes -->
+              <div
+                id="chemical_list"
+                style="max-height: 200px; overflow-y: auto; border: 1px solid #ced4da; border-radius: 4px; padding: 10px;"
+              >
+                @forelse ($chemicals as $chemical)
+                <div class="form-check chemical-item">
+                  <input
+                    type="checkbox"
+                    name="chemicals[]"
+                    value="{{ $chemical->id }}"
+                    id="chemical_{{ $chemical->id }}"
                     class="form-check-input chemical-checkbox"
                     {{ is_array(old('chemicals')) && in_array($chemical->id, old('chemicals')) ? 'checked' : '' }}
-                  >
+                  />
                   <label class="form-check-label" for="chemical_{{ $chemical->id }}">
                     {{ $chemical->chemical_name }}
                   </label>
                 </div>
-              @empty
+                @empty
                 <p class="text-muted">No chemicals available to select.</p>
-              @endforelse
-            </div>
+                @endforelse
+              </div>
 
-            @error('chemicals')
+              @error('chemicals')
               <div class="invalid-feedback d-block">{{ $message }}</div>
-            @enderror
+              @enderror
 
-            <div class="form-text small-muted mt-2">Check all chemicals stored at the facility</div>
-          </div>
-
+              <div class="form-text small-muted mt-2">
+                Check all chemicals used at the facility
+              </div>
             </div>
           </div>
+        </div>
 
 
         <!-- 4. Authorised Person Info -->
@@ -391,15 +430,25 @@
           <div class="card-body">
             <div class="row g-3">
               <div class="col-md-4">
-                <label class="form-label required">Email Address</label>
-                <input type="email" name="authorised_person_email" class="form-control underline-only" required value="{{ old('authorised_person_email') }}" maxlength="100" autocomplete="off">
+                <label class="form-label required">Name</label>
+                <input type="text" name="authorised_person_name" class="form-control underline-only" required value="{{ old(key: 'authorised_person_name') }}" placeholder="Enter Authorised Person Name" maxlength="200" autocomplete="off">
+                @error('authorised_person_name') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+              <div class="col-md-4">
+                <label class="form-label required">Designation</label>
+                <input type="text" name="authorised_person_designation" class="form-control underline-only" required value="{{ old('authorised_person_designation') }}" placeholder="Enter Authorised Person Designation" maxlength="100" autocomplete="off">
+                @error('authorised_person_designation') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+              </div>
+              <div class="col-md-4">
+                <label class="form-label required">Email</label>
+                <input type="email" name="authorised_person_email" class="form-control underline-only" required value="{{ old('authorised_person_email') }}" placeholder="Enter Authorised Person Email" maxlength="100" autocomplete="off">
                 @error('authorised_person_email') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-md-4">
                 <label class="form-label required">Mobile</label>
                 <input type="number" name="mobile_no" class="form-control underline-only" required value="{{ old('mobile_no') }}"
-                  inputmode="numeric" pattern="[0-9]{10}" maxlength="15" autocomplete="off">
+                  inputmode="numeric" pattern="[0-9]{10}" placeholder="Enter Authorised Person Mobile" maxlength="15" autocomplete="off">
                 <div class="form-text small-muted">10-digit mobile number</div>
                 @error('mobile_no') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
@@ -417,24 +466,24 @@
             <div class="row g-3">
               <div class="col-md-4">
                 <label class="form-label required">Industry Email Address</label>
-                <input type="email" name="industry_email" class="form-control underline-only" required value="{{ old('industry_email') }}" maxlength="100" autocomplete="off">
+                <input type="email" name="industry_email" class="form-control underline-only" required value="{{ old('industry_email') }}" placeholder="Enter Industry Email" maxlength="100" autocomplete="off">
                 @error('industry_email') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-md-4">
                 <label class="form-label required">Password</label>
                 <div class="input-group">
-                  <input type="password" name="password" id="password" class="form-control underline-only" autocomplete="new-password"
+                  <input type="password" name="password" id="password" class="form-control underline-only" placeholder="Enter Alphanumeric Password" autocomplete="new-password"
                     required>
                   <span class="input-group-text toggle-password" id="togglePassword">Show</span>
                 </div>
-                <div class="form-text small-muted">Min 8 characters recommended</div>
+                <div class="form-text small-muted">Min 8 characters and include letters, numbers, and special characters</div>
                 @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-md-4">
                 <label class="form-label required">Confirm Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control underline-only"
+                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Please Confirm Password" class="form-control underline-only"
                   required>
               </div>
               <!---Captcha code-->
@@ -455,7 +504,7 @@
               <div class="col-md-4">
                 <label class="form-label required">OTP</label>
                 <div class="d-flex flex-wrap gap-2 otp-controls">
-                  <input type="text" id="otp_input" class="form-control underline-only" placeholder="Enter OTP"
+                  <input type="number" id="otp_input" class="form-control underline-only" placeholder="Enter OTP"
                     autocomplete="one-time-code" inputmode="numeric">
                   <button type="button" id="send_otp_btn" class="btn btn-outline-primary">Send OTP</button>
                   <button type="button" id="verify_otp_btn" class="btn btn-primary" disabled>Verify OTP</button>
@@ -482,6 +531,11 @@
 {{-- <script src="{{ asset('assets\js\jquery-3.7.1.min.js') }}"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+{{-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/additional-methods.min.js"></script> --}}
+
 <script>
 
   $(function () {
@@ -512,33 +566,29 @@
     function validateFields(beforeAction = 'send') {
       var industry_name = $('input[name="industry_name"]').val().trim();
       // var lastname = $('input[name="lastname"]').val().trim();
-      var email = $('input[name="email"]').val().trim();
+      var authorised_person_email = $('input[name="authorised_person_email"]').val().trim();
+      var industry_email = $('input[name="industry_email"]').val().trim();
       var mobile = $('input[name="mobile_no"]').val().trim();
       var pan = $('input[name="pan_no"]').val().trim();
       var gst = $('input[name="company_gst"]').val().trim();
       var pincode = $('input[name="industry_pincode"]').val().trim();
+      var chemicals = [];
+      $('input[name="chemicals[]"]:checked').each(function() {
+        chemicals.push($(this).val());
+      });
+      var authorised_person_name = $('input[name="authorised_person_name"]').val().trim();
+      var authorised_person_designation = $('input[name="authorised_person_designation"]').val().trim();
+      var locality = $('input[name="locality"]').val().trim();
+      var estd_year = $('input[name="estd_year"]').val().trim();
       var pass = $('input[name="password"]').val();
       var confirmPass = $('input[name="password_confirmation"]').val();
       var stateDropdown = $('input[name="state"]').val();
       var districtDropdown = $('input[name="district"]').val();
-      console.log(stateDropdown);
+      // console.log(stateDropdown);
 
       // Generic required check
-      if (!industry_name || !email || !mobile || !pan || !pincode || !pass || !confirmPass || stateDropdown || districtDropdown) {
+      if (!industry_name || !industry_email || !mobile || !pan || !pincode || !pass || !confirmPass || !authorised_person_name || !authorised_person_designation || !authorised_person_email || !locality || !estd_year || chemicals.length === 0) {
         showMsg('Please fill in all required fields before ' + (beforeAction === 'send' ? 'sending OTP.' : 'verifying OTP.'), 'error');
-        return false;
-      }
-
-      // Email format
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        showMsg('Enter a valid email address.', 'error');
-        return false;
-      }
-
-      // Mobile check (10 digits)
-      if (!/^[0-9]{10}$/.test(mobile)) {
-        showMsg('Enter a valid 10-digit mobile number.', 'error');
         return false;
       }
 
@@ -555,18 +605,8 @@
       //  showMsg('Enter a valid 15-character GST number (e.g. 22ABCDE1234F1Z5).', 'error');
       //  return false;
       // }
-      // Pincode check (6 digits)
-      if (!/^[0-9]{6}$/.test(pincode)) {
-        showMsg('Enter a valid 6-digit pincode.', 'error');
-        return false;
-      }
 
-      // Password match
-      if (pass !== confirmPass) {
-        showMsg('Passwords do not match.', 'error');
-        return false;
-      }
-      // state match
+       // state match
       if ($('#stateDropdown').val() == '') {
         showMsg('Please select state.', 'error');
         return false;
@@ -577,6 +617,59 @@
         return false;
       }
 
+      // Pincode check (6 digits)
+      if (!/^[0-9]{6}$/.test(pincode)) {
+        showMsg('Enter a valid 6-digit pincode.', 'error');
+        return false;
+      }
+
+      // Email format
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(authorised_person_email)) {
+        showMsg('Enter a valid authorised person email address.', 'error');
+        return false;
+      }
+
+      // Mobile check (10 digits)
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        showMsg('Enter a valid 10-digit mobile number.', 'error');
+        return false;
+      }
+
+      if (!emailPattern.test(industry_email)) {
+        showMsg('Enter a valid industry email address.', 'error');
+        return false;
+      }
+
+      var password = $('input[name="password"]').val();
+
+      // At least 8 characters, at least one letter, one digit, and one special character
+      var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+
+      if (!passwordRegex.test(password)) {
+        showMsg('Password must be at least 8 characters and include letters, numbers, and special characters.', 'error');
+        return false;
+      }
+
+      // Check for 4 consecutive letters (case-insensitive)
+      if (/(?:abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz)/i.test(password)) {
+        showMsg('Password cannot contain 4 consecutive letters (e.g. abcd).', 'error');
+        return false;
+      }
+
+      // Check for 4 consecutive digits
+      if (/(?:0123|1234|2345|3456|4567|5678|6789|7890)/.test(password)) {
+        showMsg('Password cannot contain 4 consecutive digits (e.g. 1234).', 'error');
+        return false;
+      }
+
+
+      // Password match
+      if (pass !== confirmPass) {
+        showMsg('Passwords do not match.', 'error');
+        return false;
+      }
+     
       return true;
     }
     // to show password
@@ -617,6 +710,71 @@
           $sendBtn.prop('disabled', false);
         });
       }
+
+      // Filter chemicals on search input
+    $('#chemical_search').on('input', function () {
+      var filter = $(this).val().toLowerCase();
+      $('.chemical-item').each(function () {
+        var label = $(this).find('label').text().toLowerCase();
+        $(this).toggle(label.indexOf(filter) > -1);
+      });
+    });
+
+    // Function to update selected tags above
+    function updateSelectedChemicalTags() {
+      var $container = $('#selected_chemicals');
+      $container.empty();
+
+      $('.chemical-checkbox:checked').each(function () {
+        var id = $(this).val();
+        var label = $(this).next('label').text();
+
+        var $tag = $('<span>')
+          .addClass('badge bg-success me-2 mb-2')
+          .css('cursor', 'pointer')
+          .text(label + ' ');
+
+        var $cross = $('<span>')
+          .html('&times;')
+          .css({ 'margin-left': '6px', 'font-weight': 'bold', 'cursor': 'pointer' })
+          .on('click', function () {
+            // Uncheck the checkbox and update tags & select all state
+            $('#chemical_' + id).prop('checked', false);
+            updateSelectedChemicalTags();
+            updateSelectAllChemicals();
+          });
+
+        $tag.append($cross);
+        $container.append($tag);
+      });
+    }
+
+    // Update the "Select All" checkbox state
+    function updateSelectAllChemicals() {
+      var total = $('.chemical-checkbox').length;
+      var checked = $('.chemical-checkbox:checked').length;
+
+      $('#select_all_chemicals')
+        .prop('checked', total === checked && total > 0)
+        .prop('indeterminate', checked > 0 && checked < total);
+    }
+
+    // When any chemical checkbox changes, update tags and select all checkbox
+    $('.chemical-checkbox').on('change', function () {
+      updateSelectedChemicalTags();
+      updateSelectAllChemicals();
+    });
+
+    // When Select All is toggled, check/uncheck all checkboxes and update tags
+    $('#select_all_chemicals').on('change', function () {
+      $('.chemical-checkbox').prop('checked', $(this).is(':checked'));
+      updateSelectedChemicalTags();
+    });
+
+    // On page load, update selected tags and select all state (useful if old data restored)
+    updateSelectedChemicalTags();
+    updateSelectAllChemicals();
+
 
 
     $sendBtn.on('click', function () {
@@ -744,7 +902,7 @@
     // console.log($(this).val(),1);
     $('#districtDropdown').html('<option value="">Loading...</option>');
     if (stateCode) {
-      console.log(stateCode,1);
+      // console.log(stateCode,1);
       $.ajax({
         url: '{{ route("get.districts.by.state") }}',
         type: 'GET',
@@ -765,6 +923,59 @@
     }
   });
 
+
+  // if ($("#registrationForm").length > 0) {
+  //       $("#registrationForm").validate({
+  //           rules: {
+  //               bank_user_name: { required: true, maxlength: 100 },
+  //               bank_name: { required: true, maxlength: 200 },
+  //               branch_address: { required: true, maxlength: 150 },
+  //               bank_account_no: { required: true, maxlength: 20 },
+  //               ifsc_code: { required: true, maxlength: 20 }
+  //           },
+  //           messages: {
+  //               bank_user_name: { required: "Please enter account holder name" },
+  //               bank_name: { required: "Please enter bank name" },
+  //               branch_address: { required: "Please enter branch address" },
+  //               bank_account_no: { required: "Please enter account number" },
+  //               ifsc_code: { required: "Please enter IFSC code" }
+  //           },
+  //           submitHandler: function (form) {
+  //               var accountField = $('#bank_account_no');
+  //               var originalAccountNumber = accountField.val();
+
+  //               // Prevent masked value from being submitted
+  //               if (!/^[0-9]{9,20}$/.test(originalAccountNumber)) {
+  //                   alert("Please enter a valid bank account number.");
+  //                   return false;
+  //               }
+                
+  //               // console.log(session);
+  //               // alert(session);
+  //               // Session-based salt (Blade syntax)
+  //               var salted = {{ Session::get('random_session_id2') }} + originalAccountNumber + {{ Session::get('random_session_id1') }};
+
+  //               // console.log(Session::get('random_session_id2'));
+  //               // console.log(salted);
+  //               // alert(salted);
+  //               // AES encryption
+  //               var key = CryptoJS.enc.Hex.parse("0123456789abcdef0123456789abcdef");
+  //               var iv = CryptoJS.enc.Hex.parse("abcdef9876543210abcdef9876543210");
+  //               // alert(key);
+  //               var encrypted = CryptoJS.AES.encrypt(salted, key, {
+  //                  iv,padding: CryptoJS.pad.ZeroPadding,
+  //               });
+  //               // console.log(salted);
+  //               // alert(encrypted);
+  //               accountField.val(encrypted.toString());
+
+  //               form.submit();
+  //           }
+  //       });
+  //   }
+
+
+ 
   // validation
 
   $('#password').bind("cut copy paste",function(e) {
@@ -879,5 +1090,71 @@
   //     $('#districtDropdown').html('<option value="">-- Select District --</option>');
   //   }
   // });
+
+  $(document).ready(function () {
+     // Encryption code
+  if ($("#registrationForm").length > 0) {
+    console.log(144);
+
+    $("#registrationForm").validate({
+    // console.log(55);
+      rules: {
+            password: "required",
+            pan_no: {
+                required: true,
+            }
+        },
+        messages: {
+            password: "Please enter your password",
+            // confirm_password: "Passwords do not match",
+            pan_no: "Please enter a valid PAN"
+        },
+        submitHandler: function (form) { // for demo           
+
+          console.log(558);
+            var passwordField = $('#password');
+            var passwordConfirmField = $('#password_confirmation');
+            var panField = $('#pan_no');
+            var originalPassword = passwordField.val();
+            var originalConfirmPassword = passwordConfirmField.val();
+            var originalPan = panField.val();
+
+                // Prevent masked value from being submitted for account number and PAN
+                // if (!/^[0-9]{9,20}$/.test(originalPassword)) {
+                //     alert("Please enter a valid bank account number.");
+                //     return false;
+                // }
+                // if (!/^[A-Z0-9]{10}$/.test(originalPan)) { // Assuming PAN is alphanumeric and 10 characters
+                //     alert("Please enter a valid PAN number.");
+                //     return false;
+                // }
+
+                // Session-based salt (Blade syntax)
+                var saltedPassword = "{{ Session::get('random_session_id2') }}' + originalPassword + '{{ Session::get('random_session_id1') }}";
+                var saltedConfirmPassword = "{{ Session::get('random_session_id2') }}' + originalConfirmPassword + '{{ Session::get('random_session_id1') }}";
+                var saltedPan = "{{ Session::get('random_session_id2') }}' + originalPan + '{{ Session::get('random_session_id1') }}";
+
+                // AES encryption
+                var key = CryptoJS.enc.Hex.parse("0123456789abcdef0123456789abcdef");
+                var iv = CryptoJS.enc.Hex.parse("abcdef9876543210abcdef9876543210");
+
+                var encryptedPassword = CryptoJS.AES.encrypt(saltedPassword, key, { iv, padding: CryptoJS.pad.ZeroPadding });
+                var encryptedConfirmPassword = CryptoJS.AES.encrypt(saltedConfirmPassword, key, { iv, padding: CryptoJS.pad.ZeroPadding });
+                var encryptedPan = CryptoJS.AES.encrypt(saltedPan, key, { iv, padding: CryptoJS.pad.ZeroPadding });
+
+                // Set encrypted values back to the fields before submitting
+                passwordField.val(encryptedPassword.toString());
+                passwordConfirmField.val(encryptedConfirmPassword.toString());
+                panField.val(encryptedPan.toString());
+                console.log(000);
+                // Submit the form with encrypted values
+                form.submit();
+            // return true; // for demo
+
+        }
+    });
+  }
+});
+
 </script>
-<!-- @include('home.footer') -->
+{{-- @include('home.footer') --}}

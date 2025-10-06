@@ -22,6 +22,9 @@ class UserDetail extends Model
         'chemical_stored_list_id',
         'pan_no',
         'gst',
+        'established_year',
+        'authorised_person_name',
         'authorised_person_email',
+        'authorised_person_designation',
     ];
 }

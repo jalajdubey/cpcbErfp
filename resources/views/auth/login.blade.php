@@ -46,6 +46,7 @@
                             <div style="color: red;">{{ $message }}</div>
                         @enderror
                 </div>
+                @if(!env('DEV_ENVIRONMENT'))  
                 <div class="form-group">
                     <label>Captcha</label>
                     <div class="d-flex align-items-center">
@@ -57,6 +58,9 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                @else
+                 <span class="req fs12">Application is in DEV MODE, captcha, otp disabled</span>
+                 @endif
               
                 <div class=" mt-4">
                     <button type="submit" class="btn btn-signin text-white">Sign In</button>
