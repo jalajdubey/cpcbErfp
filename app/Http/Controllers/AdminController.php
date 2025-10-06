@@ -245,8 +245,47 @@ public function showPolicy($policyNumber)
          $totalFormatted = format_inr($totalContribution);
         // dd(  $totalContribution);
         // Ensure users are passed to the dashboard view
-         return view('admin.dashboard',compact('users','userRoles','usersIns','totalPolicylist','totalContribution','uniqueUserCount'));
+        //commented by jalaj on 16-09-2025
+        // return view('admin.dashboard',compact('users','userRoles','usersIns','totalPolicylist','totalContribution','uniqueUserCount'));
        
+        //by jalaj on 16-09-2025
+   // 🔹 Bar chart: industries insured per company
+    $policyData = IndustryMasterData::select(
+                        'name_of_insurance_company',
+                        DB::raw('COUNT(DISTINCT insured_company_id) as total')
+                    )
+                    ->groupBy('name_of_insurance_company')
+                    ->get();
+
+    $labels = $policyData->pluck('name_of_insurance_company');
+    $industryCounts = $policyData->pluck('total');
+
+    // 🔹 Pie chart: ERF contribution per company
+    $erfData = IndustryMasterData::select(
+                        'name_of_insurance_company',
+                        DB::raw('SUM(contribution_to_erf_rs) as total_erf')
+                    )
+                    ->groupBy('name_of_insurance_company')
+                    ->get();
+
+    $erfLabels = $erfData->pluck('name_of_insurance_company');
+    $erfAmounts = $erfData->pluck('total_erf');
+    $erfTotal   = $erfAmounts->sum();
+
+    return view('admin.dashboard', compact(
+        'users',
+        'userRoles',
+        'usersIns',
+        'totalPolicylist',
+        'totalContribution',
+        'uniqueUserCount',
+        'labels',
+        'industryCounts',
+        'erfLabels',
+        'erfAmounts',
+        'erfTotal'
+    ));
+
     }
 
     //add at 09-05-2025

@@ -106,6 +106,7 @@ img, video {
 <link href="https://fonts.googleapis.com/css?family=Cabin:500,600,700|Kanit:200,300,300i,400" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" includes Popper.js></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
@@ -192,9 +193,13 @@ img, video {
     <div style="width: 1px; height: 24px; background-color: #ccc;"></div>
 
     <!-- Button 2 -->
-    <button type="button" class="btn border-0 fw-bold px-3" style="font-size:20px">
+    <!-- <button type="button" class="btn border-0 fw-bold px-3" style="font-size:20px">
       Dashboard
-    </button>
+    </button> -->
+    
+     <a class="custom-login-btn" href="{{ route('publicdashboard') }}">
+        <i class="bi bi-bar-chart"></i> Public Dashboard
+    </a>
 
     <!-- Vertical Separator -->
     <div style="width: 1px; height: 24px; background-color: #ccc;"></div>
