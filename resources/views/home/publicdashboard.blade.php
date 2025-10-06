@@ -6,15 +6,6 @@
             Public Dashboard – ERF
         </h2>
 
-      <div class="card p-4 shadow-sm mt-4">
-                    <h5 class="text-center mb-3" style="color:#084095; font-weight:bold;">
-                        ERF Contribution Treemap (Insurance Companies)
-                    </h5>
-                    <div style="height:500px;">
-                        <canvas id="erfTreemap"></canvas>
-                    </div>
-                </div>
-
         <div class="row">
 
         <div class="col-md-6 mb-4">
@@ -33,9 +24,52 @@
             </a>
         </div>
 
+        <div class="col-md-6 mb-4">
+            <a href="#" style="text-decoration:none;">
+                <div class="card p-3 shadow-sm text-center dashboard-card">
+                    <div class="icon-circle bg-icon-green mb-2">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </div>
+                    <h5 class="mb-2" style="color:#084095; font-weight:bold;">
+                        Total ERF Contribution By Industries
+                    </h5>
+                    <div style="font-size:22px; font-weight:bold; color:#2e7d32;">
+                         {{ $totalErfContributionCr }} Cr
+                    </div>
+                </div>
+            </a>
+        </div>
+          <!-- Pie Chart -->
+           <div class="col-md-6 mb-4">
+                <div class="card p-3 shadow-sm text-center">
+                    <h5 class="mb-3" style="color:#084095; font-weight:bold;">
+                        ERF Contribution by Insurance Company
+                    </h5>
+                  <div style="height:400px;">
+                        <canvas id="erfChart"></canvas>
+                    </div>
+                    <!-- <div style="margin-top:15px; font-weight:bold; color:#084095;">
+                        Total ERF: ₹ {{ number_format($erfTotal, 2) }}
+                    </div> -->
+                </div>
+            </div>
+
+           <!-- Monthly Contribution Chart -->
+            <div class="col-md-6 mb-4">
+                <div class="card p-3 shadow-sm text-center">
+                    <h5 class="mb-3" style="color:#084095; font-weight:bold;">
+                         Monthly Policies Taken
+                    </h5>
+                    <div style="height:400px;">
+                        <canvas id="monthlyPoliciesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="card p-4 shadow-sm mt-4">
             <h5 class="text-center mb-3" style="color:#084095; font-weight:bold;">
-                Industries Insured vs ERF Contribution (by Company)
+               Industries Insured and ERF Contribution by Insurance Company
             </h5>
             <div style="height:400px;">
                 <canvas id="industriesByCompanyChart"></canvas>
@@ -43,37 +77,29 @@
         </div>
 
         <!-- Bar Chart -->
-            <div class="col-md-6 mb-4">
+            <!-- <div class="col-md-6 mb-4">
                 <div class="card p-3 shadow-sm">
                     <h5 class="text-center mb-3" style="color:#084095; font-weight:bold;">
                         Industries Insured per Insurance Company
                     </h5>
-                    <div style="height:300px;">
+                    <div>
                         <canvas id="policyChart"></canvas>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Pie Chart -->
-           <div class="col-md-6 mb-4">
-                <div class="card p-3 shadow-sm text-center">
-                    <h5 class="mb-3" style="color:#084095; font-weight:bold;">
-                        ERF Contribution by Insurance Company
-                    </h5>
-                    <div style="max-width:350px; margin:auto;">
-                        <canvas id="erfChart"></canvas>
-                    </div>
-                    <div style="margin-top:15px; font-weight:bold; color:#084095;">
-                        Total ERF: ₹ {{ number_format($erfTotal, 2) }}
-                    </div>
+          <!-- Bar Chart -->
+            <div class="col-md-12 mb-4">
+                <div class="card p-3 shadow-sm">
+                <h5 class="text-center mb-3" style="color:#084095; font-weight:bold;">
+                    Industries Insured per Insurance Company
+                </h5>
+                <div style="height:400px;">
+                    <canvas id="policyChart"></canvas>
+                </div>
                 </div>
             </div>
-
         </div>
-
-        
-
-
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card p-4 shadow-sm">
@@ -107,11 +133,6 @@
                 </div>
             </div>
         </div>
-
-       
-                
-        
-
     </div>
 </div>
 
@@ -134,42 +155,73 @@
     '#f39c12'  // earthy orange
 ];
 document.addEventListener("DOMContentLoaded", function () {
-    // ---- Bar Chart ----
-    const labels = @json($labels);
-    const industryCounts = @json($industryCounts);
-    new Chart(document.getElementById('policyChart'), {
+        // ---- Bar Chart ----
+        const erfLabels = @json($erfLabels);
+        const labels = @json($companyLabels);
+        const companyLabels = @json($erfLabels);
+        const industryCounts = @json($industryCounts);
+        new Chart(document.getElementById('policyChart'), {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: erfLabels,
             datasets: [{
-                label: 'Industries Insured',
-                data: industryCounts,
-                backgroundColor: [
-                    '#4e79a7', '#59a14f', '#f28e2b', '#e15759',
-                    '#76b7b2', '#edc948', '#b07aa1', '#9c755f', '#bab0ac'
-                ]
+            label: 'Industries Insured',
+            data: industryCounts,
+            backgroundColor: [
+                '#4e79a7', '#59a14f', '#f28e2b', '#e15759',
+                '#76b7b2', '#edc948', '#b07aa1', '#9c755f', '#bab0ac'
+            ]
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+            padding: {
+            top: 20   // give space for labels above tallest bar
+                }
+            },
             plugins: {
-                legend: { display: false },
-                datalabels: { display: false } // ✅ no text inside bars
+            legend: { display: false },
+            datalabels: {
+                anchor: 'end',       // position relative to bar
+                align: 'top',
+                offset: 2,        // show above the bar
+                color: '#000',       // text color
+                font: {
+                weight: 'bold'
+                },
+                formatter: (value) => value // show raw count
+            }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1,
-                        precision: 0
-                    }
+            x: {
+                title: {
+                display: true,
+                text: 'Insurance Companies'
+                },
+                ticks: {
+                stepSize: 1,
+                precision: 0
+                }
+            },
+            y: {
+                title: {
+                display: true,
+                text: 'Number of Industries Insured'
+                },
+                beginAtZero: true,
+                ticks: {
+                stepSize: 1,
+                precision: 0
                 }
             }
+            }
         }
-    });
+        });
 
-    // ---- Pie Chart ----
-        const erfLabels = @json($erfLabels);
+        // ---- Pie Chart ----
+       
         const erfAmounts = @json($erfAmounts);
 
         // 🔹 Helper: Format INR to Cr/L
@@ -183,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         new Chart(document.getElementById('erfChart'), {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: erfLabels,
                datasets: [{
@@ -198,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'right' },
+                    legend: { display: false }, // ✅ remove right-side legend
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -225,7 +277,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             if (percentage < 5) {
                                 // show short form like ₹10k
-                                return '₹ ' + (value / 1000).toFixed(0) + 'k';
+                                //return '₹ ' + (value / 1000).toFixed(0) + 'k';
+                                  return ''; // ✅ hide small slice labels
                             }
                             return formatINR(value);
                         }
@@ -234,50 +287,60 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        //insurance companies coverd industryCoun
-        //const companyLabels = @json($companyLabels);
-        const companyLabels = @json($erfLabels);
+        //****insurance companies coverd industryCount
         
         const companyIndustries = @json($companyIndustries);
         const companyErf = @json($companyErf);
 
-       function formatINR(value) {
-        return '₹ ' + (value / 100000).toFixed(1) + ' L';
-         }
+        function formatINR(value) {
+            return '₹ ' + (value / 100000).toFixed(1) + ' L';
+        }
+
         new Chart(document.getElementById('industriesByCompanyChart'), {
             type: 'bar',
             data: {
-                labels: companyLabels,
+                labels: erfLabels,   // 👈 Y-axis: Insurance Companies
                 datasets: [{
                     label: 'Industries Insured',
-                    data: companyIndustries,
+                    data: industryCounts,   // 👈 X-axis values: number of industries
                     backgroundColor: envColors
                 }]
             },
             options: {
-                indexAxis: 'y',
+                indexAxis: 'y',   // 👈 horizontal bar chart
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
                     x: {
                         beginAtZero: true,
+                        grace: '20%',   // 👈 extra space for labels
+                        title: {
+                            display: true,
+                            text: 'Number of Industries',
+                            color: '#084095',
+                            font: { weight: 'bold', size: 14 }
+                        },
                         ticks: {
-                            stepSize: 10,
-                            callback: function(value) {
-                                let next = value + 10;
-                                return value + '–' + next;
-                            }
+                            precision: 0
                         }
                     },
                     y: {
-                        ticks: { autoSkip: false }
+                        title: {
+                            display: true,
+                            text: 'Insurance Companies',
+                            color: '#084095',
+                            font: { weight: 'bold', size: 14 }
+                        },
+                        ticks: {
+                            autoSkip: false   // 👈 show all company names
+                        }
                     }
                 },
                 plugins: {
                     legend: { display: false },
                     datalabels: {
                         anchor: 'end',
-                        align: 'end',
+                        align: 'right',   // 👈 push labels outside
                         clip: false,
                         color: '#000',
                         font: {
@@ -285,89 +348,92 @@ document.addEventListener("DOMContentLoaded", function () {
                             size: 11
                         },
                         formatter: function(value, ctx) {
-                            return formatINR(companyErf[ctx.dataIndex]);
+                            return formatINR(erfAmounts[ctx.dataIndex]); // 👈 ERF contribution shown
                         }
                     }
                 }
             }
         });
 
-     // ---- Treemap Chart ----
-const treemapLabels = @json($erfLabels);    // company names
-const treemapValues = @json($erfAmounts);   // contributions
+        // **** Month-wise policies taken
+        const ctx = document.getElementById('monthlyPoliciesChart');
+        const months = @json($months);
+        const policyCounts = @json($policyCounts);
+        const policyAmounts = @json($policyAmounts); // in Lacs
 
-// Build data, filter out null/0 values
-const treemapData = treemapLabels.map((name, i) => {
-    let safeName = name ?? "Unknown";
-    let value = treemapValues[i] ?? 0;
-
-    return {
-        label: safeName,
-        shortLabel: safeName.split(" ").map(w => w[0]).join("").toUpperCase(), // Short code
-        value: value
-    };
-}).filter(item => item.value > 0);   // ✅ remove zero-contribution
-
-// Format INR only in Lakhs
-function formatINRT(value) {
-    if (!value || isNaN(value)) return '₹ 0';
-    return '₹ ' + (value / 100000).toFixed(1) + ' L';
-}
-
-new Chart(document.getElementById('erfTreemap'), {
-    type: 'treemap',
-    data: {
-        datasets: [{
-            tree: treemapData,
-            key: 'value',
-            groups: ['label'],
-            borderColor: '#fff',
-            borderWidth: 1,
-            spacing: 0.5,
-            backgroundColor(ctx) {
-                const colors = [
-                    '#4e79a7','#59a14f','#f28e2b','#e15759',
-                    '#76b7b2','#edc948','#b07aa1','#9c755f','#bab0ac'
-                ];
-                return colors[ctx.index % colors.length];
-            },
-            labels: {
-                display: true,
-                formatter(ctx) {
-                    const item = ctx.raw;
-                    // Show only short code inside the box
-                    return item.shortLabel;
-                },
-                font: {
-                    size: 12,
-                    weight: 'bold'
-                },
-                color: 'white',  // ✅ all text white
-                align: 'center'
-            }
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let item = context.raw;
-                        let total = treemapData.reduce((a, b) => a + (b.value || 0), 0);
-                        if (total === 0) return item.label + ': ₹ 0 (0%)'; // ✅ avoid NaN
-                        let percentage = ((item.value / total) * 100).toFixed(1);
-                        // ✅ Tooltip shows full company name + contribution in Lakhs
-                        return item.label + ': ' + formatINRT(item.value) + ' (' + percentage + '%)';
-                    }
-                }
-            },
-            legend: { display: false }
+        new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Policies Taken',
+        data: policyCounts,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        yAxisID: 'y',
+        barPercentage: 1.0,
+        categoryPercentage: 1.0,
+        datalabels: {          // ✅ apply only to this dataset
+          anchor: 'end',
+          align: 'top',
+          offset: 2,
+          color: '#000',
+          font: { weight: 'bold' },
+          formatter: (value) => value
         }
+      },
+      {
+        type: 'line',
+        label: 'Policy Trend',
+        data: policyCounts,
+        borderColor: 'blue',
+        borderWidth: 2,
+        fill: false,
+        tension: 0.3,
+        pointBackgroundColor: 'blue',
+        yAxisID: 'y',
+        datalabels: { display: false }  // ❌ no labels for line
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Policies Taken'
+        }
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            if (context.dataset.type === 'line') {
+              const index = context.dataIndex;
+              return [
+                'Policies: ' + policyCounts[index],
+                'Amount: ' + policyAmounts[index] + ' L'
+              ];
+            }
+            return null;
+          }
+        }
+      },
+      legend: {
+        labels: {
+          filter: function (item) {
+            return item.text !== 'Policy Trend'; // hide trend label if unwanted
+          }
+        }
+      }
     }
+  }
+  
 });
-
 
 });
 </script>

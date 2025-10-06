@@ -31,7 +31,8 @@ class PublicDashboardController extends Controller
         $erfLabels = $erfData->pluck('name_of_insurance_company');
         $erfAmounts = $erfData->pluck('total_erf');
         $erfTotal   = $erfAmounts->sum();
-         
+     
+        // dd($erfTreemapData);
         // 🔹 Year-wise stats
         $yearWiseData = IndustryMasterData::selectRaw("
             YEAR(date_of_policy) as policy_year,
@@ -66,6 +67,36 @@ class PublicDashboardController extends Controller
     $companyIndustries = $industryByCompany->pluck('industries_count');
     $companyErf = $industryByCompany->pluck('total_erf');
 
+    // Month-wise policies taken with amount
+        $monthlyPolicies = IndustryMasterData::selectRaw("
+        YEAR(date_of_policy) as year,
+        MONTH(date_of_policy) as month,
+        COUNT(DISTINCT policy_number) as total_policies,
+        SUM(contribution_to_erf_rs) as total_amount
+    ")
+    ->groupBy('year', 'month')
+    ->orderBy('year')
+    ->orderBy('month')
+    ->get();
+
+$months = [];
+$policyCounts = [];
+$policyAmounts = [];
+
+foreach ($monthlyPolicies as $row) {
+    $monthName = date("M", mktime(0, 0, 0, $row->month, 1));
+    $months[] = $monthName . " " . $row->year;
+    $policyCounts[] = $row->total_policies;
+    $policyAmounts[] = round($row->total_amount / 100000, 2); // convert to Lacs
+}
+
+//total erf contibution in cr
+// Grand total ERF Contribution (in Crores)
+$totalErfContribution = IndustryMasterData::sum('contribution_to_erf_rs');
+$totalErfContributionCr = round($totalErfContribution / 10000000, 2); // in Cr
+
+  
+
     return view('home.publicdashboard', compact(
        'labels',
     'industryCounts',
@@ -75,7 +106,11 @@ class PublicDashboardController extends Controller
     'yearWiseData',
     'companyLabels',
     'companyIndustries',
-     'companyErf'
+    'companyErf',
+    'months',
+    'policyCounts',
+    'policyAmounts',
+    'totalErfContributionCr'
     ));
        // return view('home.publicdashboard', compact('labels', 'industryCounts', 'erfLabels', 'erfAmounts', 'erfTotal','yearWiseData'));
     }
