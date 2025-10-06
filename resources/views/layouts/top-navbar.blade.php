@@ -54,9 +54,9 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Account Setting</a>
                 <div class="dropdown-divider"></div>
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
                   @csrf
-                  <button type="submit">Logout</button>
+                  <button type="submit" class="dropdown-item">Logout</button>
                 </form>
 
               </li>
@@ -81,5 +81,5 @@
     </ul>
   </div>
 </nav>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}

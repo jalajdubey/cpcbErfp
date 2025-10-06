@@ -49,7 +49,11 @@
             <ul class="nav nav-secondary">
             @if ($user && $user->role_type != '4')
               <li class="nav-item">
-              <a href="{{ route('admin.dashboard') }}">
+                @if ($user && $user->role_type == '3')
+                <a href="{{ route('industries.dashboard') }}">
+                @else
+                <a href="{{ route('admin.dashboard') }}">
+                @endif
                   <i class="fas fa-home"></i>
                   <p>Dashboard</p>
                   <span class="caret"></span>
@@ -88,7 +92,14 @@
             <p>Change Password</p>
           </a>
         </li>
-
+         @if ($user && $user->role_type == '3')
+        <li class="nav-item">
+          <a href="{{ route('policy.check.form') }}">
+            <i class="fa fa-lock"></i>
+            <p>Policy Data Verification</p>
+          </a>
+        </li>
+        @endif
       </ul>
           </div>
         </div>

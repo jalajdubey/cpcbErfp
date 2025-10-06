@@ -125,4 +125,15 @@ public function GetGstApi(Request $req)
         );
 
     }
+
+    public function showPolicyForm()
+    {
+    //    $states = LgdStateDistricts::select('state_code', 'state_name')
+    //         ->groupBy('state_code', 'state_name')
+    //         ->orderBy('state_name')
+    //         ->get();
+    //     $chemicals = ChemicalStoredList::all();
+        return view('auth.policy-check');
+        // return view('auth.register', compact('states','chemicals'));
+    }
 }

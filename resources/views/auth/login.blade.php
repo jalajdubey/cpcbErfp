@@ -46,17 +46,21 @@
                             <div style="color: red;">{{ $message }}</div>
                         @enderror
                 </div>
-             <div class="form-group">
-    <label>Captcha</label>
-    <div class="d-flex align-items-center">
-        <span id="captchaImage">{!! captcha_img('flat') !!}</span>
-        <button type="button" class="btn btn-warning ms-2" id="reloadCaptcha">Refresh</button>
-    </div>
-    <input type="text" name="captcha" class="form-control mt-2" placeholder="Enter Captcha" required>
-    @error('captcha')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-</div>
+                @if(!env('DEV_ENVIRONMENT'))  
+                <div class="form-group">
+                    <label>Captcha</label>
+                    <div class="d-flex align-items-center">
+                        <span id="captchaImage">{!! captcha_img('flat') !!}</span>
+                        <button type="button" class="btn btn-warning ms-2" id="reloadCaptcha">Refresh</button>
+                    </div>
+                    <input type="text" name="captcha" class="form-control mt-2" placeholder="Enter Captcha" required>
+                    @error('captcha')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                @else
+                 <span class="req fs12">Application is in DEV MODE, captcha, otp disabled</span>
+                 @endif
               
                 <div class=" mt-4">
                     <button type="submit" class="btn btn-signin text-white">Sign In</button>
@@ -92,7 +96,7 @@
     const captchaImage = document.getElementById('captchaImage');
 
     reloadBtn.addEventListener('click', () => {
-        fetch('/reload-captcha')
+        fetch('{{route('refresh.capctha')}}')
             .then(res => res.json())
             .then(data => {
                 // Create a temporary <div> to parse the new HTML

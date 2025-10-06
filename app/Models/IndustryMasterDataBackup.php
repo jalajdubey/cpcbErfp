@@ -39,6 +39,10 @@ class IndustryMasterDataBackup extends Model
         'date_of_policy',
         'batch_reference',
         'original_batch_reference',
+        'dc_address_under_territorial_limit_where_chemicals_falls',
+        'insurer_payment_date_to_insurance_company',
+        'date_of_declaration',
+        'payment_mode',
     ];
     
 }
