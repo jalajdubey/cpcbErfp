@@ -11,6 +11,8 @@ use App\Http\Controllers\Industries;
 use App\Http\Controllers\AdminInsurance;
 use App\Http\Controllers\SecureFileController;
 
+use App\Http\Controllers\PublicDashboardController;
+
 /*
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,11 @@ use App\Http\Controllers\SecureFileController;
 // Route::get('home', function () {
 //     return view('welcome');
 // });
+//by jalaj
+Route::get('/publicdashboard', [PublicDashboardController::class, 'index'])->name('publicdashboard');
+Route::get('/insurance_industry_report', [PublicDashboardController::class, 'insuranceIndustryReport'])
+    ->name('insurance.industry.report');
+
 Route::get('/', [HomeController::class, 'homepage'])->name('home');
 Route::get('/about', [HomeController::class, 'aboutpage'])->name('aboutus');
 Route::get('/pilerf', [HomeController::class, 'pilpage'])->name('pilandErf');
