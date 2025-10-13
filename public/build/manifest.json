@@ -1,0 +1,66 @@
+{
+  "_vendor-CBl5CGpW.js": {
+    "file": "assets/vendor-CBl5CGpW.js",
+    "name": "vendor"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DuRPRX4A.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-B0PJKNPt.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-CBl5CGpW.js"
+    ],
+    "dynamicImports": [
+      "resources/js/kaiadmin.min.js",
+      "resources/js/demo.js",
+      "resources/js/setting-demo.js",
+      "resources/js/custom/industry.register.js",
+      "resources/js/custom/publicdashboard.js"
+    ]
+  },
+  "resources/js/custom/industry.register.js": {
+    "file": "assets/industry.register-CfYaedQs.js",
+    "name": "industry.register",
+    "src": "resources/js/custom/industry.register.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/custom/publicdashboard.js": {
+    "file": "assets/publicdashboard-rk0Dy64H.js",
+    "name": "publicdashboard",
+    "src": "resources/js/custom/publicdashboard.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/demo.js": {
+    "file": "assets/demo-4y6UPiBj.js",
+    "name": "demo",
+    "src": "resources/js/demo.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/kaiadmin.min.js": {
+    "file": "assets/kaiadmin.min-CoPzimSC.js",
+    "name": "kaiadmin.min",
+    "src": "resources/js/kaiadmin.min.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/loggedin.js": {
+    "file": "assets/loggedin-CLpdcih4.js",
+    "name": "loggedin",
+    "src": "resources/js/loggedin.js",
+    "isEntry": true
+  },
+  "resources/js/setting-demo.js": {
+    "file": "assets/setting-demo-DP1JTJ2l.js",
+    "name": "setting-demo",
+    "src": "resources/js/setting-demo.js",
+    "isDynamicEntry": true
+  }
+}

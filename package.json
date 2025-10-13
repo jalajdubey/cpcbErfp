@@ -3,17 +3,22 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build && if exist public\\build\\.vite\\manifest.json copy public\\build\\.vite\\manifest.json public\\build\\manifest.json"
     },
     "devDependencies": {
+        "@popperjs/core": "^2.11.8",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
         "vite": "^7.1.5"
     },
     "dependencies": {
+        "bootstrap": "^5.3.0",
         "chart.js": "^4.5.0",
         "chartjs-chart-treemap": "^3.1.0",
         "chartjs-plugin-datalabels": "^2.2.0",
-        "chartjs-plugin-labels": "^1.1.0"
+        "chartjs-plugin-labels": "^1.1.0",
+        "crypto-js": "^4.2.0",
+        "jquery": "^3.7.1",
+        "jquery-validation": "^1.21.0"
     }
 }

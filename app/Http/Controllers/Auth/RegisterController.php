@@ -24,43 +24,7 @@ use Session;
 
 class RegisterController extends Controller
 {
-    //
-    // public function showRegistrationForm()
-    // {
-    //     return view('auth.register');
-    // }
-
-    // public function register(Request $request)
-    // {
-    //     $this->validator($request->all())->validate();
-
-    //     $user = $this->create($request->all());
-
-    //     auth()->login($user);
-
-    //     return redirect()->route('home');
-    // }
-
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
-    //     ]);
-    // }
-
-    // protected function create(array $data)
-    // {
-    //     return User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => Hash::make($data['password']),
-    //     ]);
-    // }
-
-
-    //new registration start at 26/7/2025
+     //new registration start at 26/7/2025
     public function showPolicyForm()
     {
         $states = LgdStateDistricts::select('state_code', 'state_name')
@@ -171,8 +135,6 @@ class RegisterController extends Controller
     // Step 4: Save user + linked policy data
     public function processRegistration(Request $request)
     {
-
-
         // Decrypt PAN
         $encryptedPan = $request->pan_no;
         $pan = $this->decrypt($encryptedPan);
@@ -411,5 +373,52 @@ class RegisterController extends Controller
         // Log::info("Expected suffix: " . $suffix);
 
         // return null;
+    }
+
+    //by jalaj on 7-10-2025 for insurance company registration
+      // Show Insurance form
+    public function showInsuranceForm()
+    {
+        return view('insurance.register');
+    }
+
+    // Handle Insurance registration
+     /**
+     * Handle Insurance Company Registration
+     */
+    public function registerInsurance(Request $request)
+    {
+        $request->validate([
+            'industry_name' => 'required|string|max:255',
+            'pan_no' => 'required|string|size:10|unique:users,pan_no',
+            'company_gst' => 'nullable|string|max:15',
+            'estd_year' => 'required|digits:4',
+            'locality' => 'required|string|max:255',
+            'state' => 'required|string',
+            'district' => 'required|string',
+            'industry_pincode' => 'required|digits:6',
+            'authorised_person_name' => 'required|string|max:255',
+            'authorised_person_designation' => 'required|string|max:100',
+            'authorised_person_email' => 'required|email|max:255',
+            'mobile_no' => 'required|digits_between:10,15',
+            'industry_email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|string|min:8|confirmed',
+            'captcha' => 'required|captcha'
+        ]);
+
+        // Create the user
+        User::create([
+            'name' => $request->industry_name,
+            'email' => $request->industry_email,
+            'password' => Hash::make($request->password), // ✅ server-side hashing
+            'contact_no' => $request->mobile_no,
+            'state_code' => $request->state,
+            'district_id' => $request->district,
+            'pan_no' => strtoupper($request->pan_no),
+            'gst_no' => $request->company_gst,
+            'role_type' => 4, // static for Insurance Company
+        ]);
+
+        return redirect()->route('insurance.register')->with('success', 'Insurance company registered successfully!');
     }
 }

@@ -13,6 +13,10 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\SecureFileController;
 
 use App\Http\Controllers\PublicDashboardController;
+use App\Http\Controllers\CommonController;
+
+Route::get('/get-districts', [CommonController::class, 'getDistrictsByState'])
+    ->name('get.districts.by.state');
 
 /*
 /*
@@ -33,6 +37,10 @@ use App\Http\Controllers\PublicDashboardController;
 Route::get('/publicdashboard', [PublicDashboardController::class, 'index'])->name('publicdashboard');
 Route::get('/insurance_industry_report', [PublicDashboardController::class, 'insuranceIndustryReport'])
     ->name('insurance.industry.report');
+//by jalaj on 7-10-2025
+// Insurance registration
+Route::get('/insurance/register', [RegisterController::class, 'showInsuranceForm'])->name('insurance.register');
+Route::post('/insurance/register', [RegisterController::class, 'registerInsurance'])->name('insurance.store');
 
 Route::get('/', [HomeController::class, 'homepage'])->name('home');
 Route::get('/about', [HomeController::class, 'aboutpage'])->name('aboutus');

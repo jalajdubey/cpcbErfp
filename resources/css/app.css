@@ -1,0 +1,49 @@
+/* ===============================
+   1️⃣ Core Framework
+   =============================== */
+
+/* Bootstrap (installed via npm) */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+
+/* ===============================
+   2️⃣ Theme & Plugin Styles
+   =============================== */
+
+/* KaiAdmin Theme */
+@import "./kaiadmin.min.css";
+
+/* Plugin Styles (DataTables, Charts, etc.) */
+@import "./plugins.min.css";
+
+/* Fonts and External Libraries */
+@import "./fonts.css";
+@import "./css2.css";
+
+
+/* ===============================
+   3️⃣ Project-Level Styles
+   =============================== */
+
+/* Header and Footer */
+@import "./header.css";
+@import "./footer.css";
+
+/* Core Custom Styles */
+@import "./custom.css";
+
+/* Sidebar (common for logged-in users) */
+@import "./custom/sidebar.css";
+@import "./custom/industry.register.css";
+
+/* If this file still exists — merge or rename later */
+@import "./customamardeep.css";
+
+
+/* ===============================
+   4️⃣ Global Overrides
+   =============================== */
+
+body {
+   /* background-color: #f8f9fa; */
+}

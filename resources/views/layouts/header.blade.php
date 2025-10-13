@@ -1,121 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Environmental Relief Fund (ERF)</title>
-    <meta
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-      name="viewport"
-    />
-    <link
-      rel="icon"
-      href="{{ asset('assets/img/kaiadmin/favicon.ico') }}"
-      type="image/x-icon"
-    />
-    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 
-<link href="{{ asset('assets/css/fonts.css') }}" rel="stylesheet" type="text/css">
+    {{-- ✅ Favicon --}}
+    <link rel="icon" href="{{ asset('assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon">
 
-<link href="{{ asset('assets/css/kaiadmin.min.css') }}" rel="stylesheet" type="text/css">
-
-<link href="{{ asset('assets/css/plugins.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset('assets/css/demo.css') }}" rel="stylesheet" type="text/css">
-<style>
-    .sidebar .nav .nav-item p {
-    color: #fff !important;
-}
-</style>
-<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["assets/css/fonts.min.css"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
+    {{-- ✅ Use Vite for all CSS & JS --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-  
 
+<body data-page="{{ Route::currentRouteName() }}">
+    {{-- =====================================================
+         HEADER TOP BAR
+    ====================================================== --}}
+    <div class="top-header-box">
+        <div class="container top-header-box-inner d-flex align-items-center position-relative">
+            {{-- Left-aligned logo --}}
+            <div class="top-header-left">
+                <img src="{{ asset('images/gov_logo.png') }}" alt="Gov Logo" class="img-fluid" style="max-height: 60px;">
+            </div>
+
+            {{-- Center heading --}}
+            <h3 class="top-header-center notranslate m-0 position-absolute start-50 translate-middle-x text-center w-100">
+                <span class="notranslate">ENVIRONMENT RELIEF FUND SCHEME MANAGEMENT SYSTEM</span><br>
+                (Portal under the Environment Relief Fund Scheme, 2024)
+            </h3>
+        </div>
+    </div>
+
+    {{-- =====================================================
+         HEADER BOTTOM (LOGOS + MENU BUTTONS)
+    ====================================================== --}}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row align-items-center py-3">
+                <div class="col-sm-6">
+                    <ul class="d-flex list-unstyled align-items-center gap-4 m-0">
+                        <li><img src="{{ asset('images/cpcb_logo.png') }}" alt="CPCB" class="img-fluid" style="height: 70px;"></li>
+                        <li style="height: 50px; border-left: 2px solid #ccc;"></li>
+                        <li><img src="{{ asset('images/life_logo.png') }}" alt="LIFE" class="img-fluid" style="height: 70px;"></li>
+                        <li style="height: 50px; border-left: 2px solid #ccc;"></li>
+                        <li class="d-flex align-items-center">
+                            <img src="{{ asset('images/ministry_logo.png') }}" alt="MoEF" class="img-fluid me-2" style="height: 70px;">
+                            <div style="max-width: 250px;">
+                                <strong>
+                                    Ministry of Environment, Forest<br>
+                                    and Climate Change,<br>
+                                    Government of India
+                                </strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 d-flex justify-content-end align-items-center">
+                    <div class="d-flex align-items-center gap-3">
+
+                        {{-- Sign Up Dropdown --}}
+                        <div class="dropdown">
+                            <button class="btn border-0 fw-bold px-4 py-2 dropdown-toggle" type="button"
+                                id="signupDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;">
+                                Sign up
+                            </button>
+                            <ul class="dropdown-menu shadow" aria-labelledby="signupDropdown">
+                                <li><a class="dropdown-item" href="{{ route('industry.register') }}">Industry</a></li>
+                                <li><a class="dropdown-item" href="{{ route('insurance.register') }}">Insurance Company</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="vertical-separator"></div>
+
+                        {{-- Public Dashboard --}}
+                        <a class="custom-login-btn" href="{{ route('publicdashboard') }}">
+                            <i class="bi bi-bar-chart"></i> Public Dashboard
+                        </a>
+
+                        <div class="vertical-separator"></div>
+
+                        {{-- Login Button --}}
+                        <a href="{{ route('login') }}" class="custom-login-btn">Login</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- =====================================================
+         NAVIGATION MENU
+    ====================================================== --}}
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainnav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+                    <li class="nav-item"><a class="nav-link custom-nav-link active" href="{{ route('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('aboutus') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('pilandErf') }}">PIL & ERF</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('actandRule') }}">Act & Rules</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('stakeholder') }}">Stake Holders</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('annualReport') }}">Annual Audit Report</a></li>
+                    <li class="nav-item"><a class="nav-link custom-nav-link" href="{{ route('faqM') }}">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </body>
-<script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>  
-    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>  
-    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-     <!-- jQuery Scrollbar -->
-   
-    <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
-
-     <!-- Chart JS -->
-  
-    <script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
-     <!-- jQuery Sparkline -->
-   
-    <script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
-
-     <!-- Chart Circle -->
-    
-    <script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
-
-     <!-- Datatables -->
-    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
-    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-
-     <!-- Bootstrap Notify -->
-    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
-
-     <!-- jQuery Vector Maps -->
-    <script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
-   
-
-     <!-- Sweet Alert -->
-   
-    <script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-
-    <!-- Kaiadmin JS -->
-    <script src="assets/js/kaiadmin.min.js"></script>
-
-     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="{{ asset('assets/js/setting-demo.js') }}"></script>
-    <script src="{{ asset('assets/js/demo.js') }}"></script>
-   
-    <script>
-      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#177dff",
-        fillColor: "rgba(23, 125, 255, 0.14)",
-      });
-
-      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-      });
-
-      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-      });
-    </script>
+</html>

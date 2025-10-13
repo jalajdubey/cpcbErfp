@@ -1,0 +1,54 @@
+/* Footer base */
+.landing-footer {
+  background: linear-gradient(45deg, #108e16, #084095) !important;
+  border-radius: 20px 20px 0 0;
+  color: #fff;
+  position: relative;
+  padding: 70px 0 0;
+}
+
+/* Partner logos */
+ul.client {
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 -3px 13px #999;
+  position: absolute;
+  top: -45px;
+  border-radius: 15px;
+  left: 0;
+  right: 0;
+  width: 900px;
+  margin: 0 auto;
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 992px) {
+  ul.client {
+    flex-wrap: wrap;
+    width: 100%;
+    top: -30px;
+  }
+}
+
+.footer-logo {
+  height: 47px;
+  width: auto;
+}
+
+/* Bottom footer */
+.footer-bottom {
+  background-color: #000;
+  color: #fff;
+}
+
+.footer-bottom a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-bottom a:hover {
+  color: #0dcaf0;
+}

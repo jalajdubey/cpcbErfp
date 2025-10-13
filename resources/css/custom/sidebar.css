@@ -1,0 +1,48 @@
+/* Sidebar Title Gradient */
+.text-1 {
+  margin-bottom: 40px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #ffbd00 0%, #08950f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-animation: hue 2s infinite linear;
+  animation: hue 2s infinite linear;
+}
+
+/* Sidebar Background */
+.sidebar {
+  background: #084095 !important;
+  color: #fff;
+}
+
+/* Sidebar Links */
+.sidebar .nav-item a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.sidebar .nav-item a:hover,
+.sidebar .nav-item a.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Sidebar Icons */
+.sidebar .nav-item i {
+  margin-right: 8px;
+}
+
+/* Scrollbar Style */
+.scrollbar-inner::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-inner::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+}

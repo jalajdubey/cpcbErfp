@@ -1,5 +1,5 @@
 <style>
- <style>
+
     /* Base styles */
     body {
       background-color: #f8f9fc;
@@ -103,10 +103,10 @@
       }
     }
   </style>
-</style>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-@include('layouts.header')
+
 
 @include('layouts.sidebar')
 @include('layouts.top-navbar')
@@ -279,7 +279,7 @@
 </div>
 </div>
 <!-- this line of code added by jalaj on 16-09-2025 -->
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const envColors = [
     '#2e7d32', // forest green

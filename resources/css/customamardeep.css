@@ -1,0 +1,40 @@
+body {
+  background-color: #f1f2f3ff;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(45deg, #108e16, #084095);
+  border-bottom: 1px solid #dbeafe;
+  color: #fff;
+}
+
+.form-section {
+  border: 2px solid #c2cfc4;
+  border-radius: 15px;
+}
+
+.form-control.underline-only {
+  border: none;
+  border-bottom: 1px solid #0d0d0e;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.badge {
+  font-size: 16px;
+}
