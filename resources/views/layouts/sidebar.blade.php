@@ -20,7 +20,6 @@
 @php
     use Illuminate\Support\Facades\Route;
     $user = Auth::user();
-<<<<<<< Updated upstream
   
 @endphp
 
@@ -108,60 +107,3 @@
         
       </div>
      
-=======
-    $currentRoute = Route::currentRouteName();
-@endphp
-
-<aside class="sidebar sidebar-erf d-flex flex-column">
-  {{-- Logo Header --}}
-  <div class="sidebar-logo text-center py-3 border-bottom">
-    <h5 class="m-0 fw-semibold text-uppercase">ERF Dashboard</h5>
-  </div>
-
-  {{-- Sidebar Navigation --}}
-  <div class="sidebar-wrapper flex-grow-1">
-    <ul class="nav flex-column">
-
-      {{-- 🏠 Dashboard --}}
-      <li class="nav-item {{ $currentRoute === 'admin.dashboard' ? 'active' : '' }}">
-        <a href="{{ route('admin.dashboard') }}">
-          <i class="fas fa-home me-2"></i> <span>Dashboard</span>
-        </a>
-      </li>
-
-      {{-- 💼 Insurance Role --}}
-      @if($user && $user->role_type == 4)
-        <li class="nav-item {{ $currentRoute === 'insurance.dashboard' ? 'active' : '' }}">
-          <a href="{{ route('insurance.dashboard') }}">
-            <i class="fas fa-briefcase me-2"></i> <span>Insurance Home</span>
-          </a>
-        </li>
-      @endif
-
-      {{-- 🏭 Industry Role --}}
-      @if($user && $user->role_type == 3)
-        <li class="nav-item {{ $currentRoute === 'industry.dashboard' ? 'active' : '' }}">
-          <a href="{{ route('industry.dashboard') }}">
-            <i class="fas fa-industry me-2"></i> <span>Industry Home</span>
-          </a>
-        </li>
-      @endif
-
-      {{-- 🔑 Change Password --}}
-      <li class="nav-item {{ $currentRoute === 'password.change' ? 'active' : '' }}">
-        <a href="{{ route('password.change') }}">
-          <i class="fa fa-key me-2"></i> <span>Change Password</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  {{-- Sidebar Footer (Collapse Button) --}}
- <div class="sidebar-footer">
-  <button id="sidebarCollapseBtn">
-    <i class="fa fa-angle-double-left"></i> <span>Collapse</span>
-  </button>
-</div>
-</aside>
-
->>>>>>> Stashed changes

@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 <style>
  <style>
     /* Base styles */
@@ -6,18 +5,9 @@
       background-color: #f8f9fc;
       font-family: 'Segoe UI', sans-serif;
     }
-=======
-{{-- =====================================================
-     ERF Multi-Role Dashboard Layout (Fixed & Optimized)
-====================================================== --}}
-@extends('layouts.dashboard-layout')
-
-@section('title', 'Dashboard')
->>>>>>> Stashed changes
 
 @section('dashboard-content')
 
-<<<<<<< Updated upstream
     /* Card layout */
     .dashboard-card {
       background: linear-gradient(to bottom right, #ffffff, #f5f9ff);
@@ -117,12 +107,6 @@
     <div class="card mt-3">
     
     <h2 class="dashboard-title">Environmental Relief Fund (ERF) - CPCB Dashboard</h2>
-=======
-<div class="container-fluid py-3">
-  {{-- ===============================
-       DASHBOARD STATS CARDS
-  ================================ --}}
->>>>>>> Stashed changes
   <div class="row g-4">
     <div class="col-6 col-md-3">
       <div class="dashboard-card">
@@ -309,16 +293,9 @@
     </div>
   </div>
 </div>
-<<<<<<< Updated upstream
 </div>
 <!-- this line of code added by jalaj on 16-09-2025 -->
    @vite(['resources/css/app.css', 'resources/js/app.js'])
-=======
-
-{{-- ===============================
-     DASHBOARD JS INITIALIZATION
-================================ --}}
->>>>>>> Stashed changes
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   console.log("📊 Dashboard Charts Init");
@@ -908,4 +885,4 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 @endsection
-@endsection
+
