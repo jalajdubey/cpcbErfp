@@ -1,0 +1,130 @@
+/* ============================================================
+   Sidebar Styles (KaiAdmin Light – Final Fixed Version)
+============================================================ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #0b2042 !important;
+  color: #ffffff !important;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  z-index: 1040;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar header */
+.sidebar-logo {
+  background-color: #06285e !important;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-logo h5 {
+  color: #ffffff !important;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Nav list */
+.sidebar .nav {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+/* Links */
+.sidebar .nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: rgba(255, 255, 255, 0.92) !important; /* brighter white */
+  text-decoration: none !important;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.sidebar .nav-item a i {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+/* Hover effect */
+.sidebar .nav-item a:hover {
+  background-color: #0d3c8a !important;
+  color: #ffffff !important;
+}
+
+/* Active link */
+.sidebar .nav-item.active a {
+  background-color: #ffc107 !important;
+  color: #0b2042 !important;
+  font-weight: 600 !important;
+  border-left: 3px solid #e0b100;
+}
+
+/* Make sure icons are visible inside active link */
+.sidebar .nav-item.active a i {
+  color: #0b2042 !important;
+}
+
+/* Footer with collapse button */
+.sidebar-footer {
+  margin-top: auto;
+  background-color: #081a35;
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-footer button {
+  border: none;
+  background-color: #ffc107;
+  color: #0b2042;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-footer button:hover {
+  background-color: #e0b100;
+  color: #ffffff;
+}
+
+/* Collapsed sidebar */
+body.sidebar-collapsed .sidebar {
+  width: 70px !important;
+}
+
+body.sidebar-collapsed .sidebar .nav-item a span,
+body.sidebar-collapsed .sidebar-logo h5 {
+  display: none !important;
+}
+
+body.sidebar-collapsed .sidebar .nav-item a {
+  justify-content: center !important;
+}
+
+body.sidebar-collapsed .sidebar-footer button span {
+  display: none;
+}
+
+/* Mobile slide */
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+}

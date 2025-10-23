@@ -1,5 +1,10 @@
-@include('home.header')
+@extends('layouts.app')
+
+@section('title', 'Login')
+@section('body-class', 'login-page')
+
+@section('content')
 
 FAQ
 
-@include('home.footer')
+@endsection

@@ -13,6 +13,12 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\SecureFileController;
 
 use App\Http\Controllers\PublicDashboardController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\CommonController;
+
+
+>>>>>>> Stashed changes
 
 /*
 /*
@@ -29,7 +35,13 @@ use App\Http\Controllers\PublicDashboardController;
 // Route::get('home', function () {
 //     return view('welcome');
 // });
+//jalaj on 13-10-2025
+Route::post('/verify-gst', [RegisterController::class, 'verifyGst'])->name('verify.gst');
+
 //by jalaj
+Route::get('/get-districts', [CommonController::class, 'getDistrictsByState'])
+    ->name('get.districts.by.state');
+
 Route::get('/publicdashboard', [PublicDashboardController::class, 'index'])->name('publicdashboard');
 Route::get('/insurance_industry_report', [PublicDashboardController::class, 'insuranceIndustryReport'])
     ->name('insurance.industry.report');

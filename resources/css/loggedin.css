@@ -1,0 +1,42 @@
+/* ===============================
+   1️⃣ Core Frameworks
+=============================== */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* ===============================
+   2️⃣ KaiAdmin Theme + Plugins
+=============================== */
+@import "./kaiadmin.min.css";
+@import "./plugins.min.css";
+
+/* ===============================
+   3️⃣ Project Custom Styles
+=============================== */
+@import "./custom/layout.css";
+@import "./custom/sidebar.css";
+@import "./custom/topnavbar.css";
+@import "./modules/admin.css";
+@import "./custom/dashboard.css";
+
+
+/* ===============================
+   4️⃣ Global Adjustments
+=============================== */
+body {
+  background-color: #f8f9fc;
+  font-family: "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+@media (max-width: 992px) {
+  .main-panel {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+}
+
+body.sidebar-open .main-panel {
+  margin-left: 0 !important;
+}

@@ -1,0 +1,203 @@
+/* ============================================================
+   TOP NAVBAR STYLES (refactored, Popper-friendly)
+   ============================================================ */
+
+/* ---------- Base navbar ---------- */
+.navbar-dashboard {
+  position: fixed;
+  top: 0;
+  left: 250px;            /* offset from sidebar on desktop */
+  right: 0;
+  height: 60px;
+  background-color: #084095;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1050;
+  transition: all 0.3s ease;
+}
+
+/* ---------- Sidebar toggle (mobile only) ---------- */
+.btn-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  display: none;
+  cursor: pointer;
+}
+
+/* show toggle on smaller screens and make navbar full width */
+@media (max-width: 992px) {
+  .btn-toggle {
+    display: inline-block;
+  }
+
+  .navbar-dashboard {
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* ---------- Brand styling ---------- */
+.navbar-dashboard .navbar-brand {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-dashboard .navbar-brand:hover {
+  color: #cce0ff;
+}
+
+/* ---------- Profile dropdown (container) ---------- */
+.profile-dropdown {
+  position: relative; /* important so data-bs-reference="parent" anchors here */
+  display: inline-flex;
+  align-items: center;
+}
+
+/* dropdown toggle appearance */
+.profile-dropdown .dropdown-toggle {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* remove bootstrap pseudo-arrow so you can control icon set yourself */
+.profile-dropdown .dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+}
+
+.profile-dropdown .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* avatar */
+.profile-dropdown .profile-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  object-fit: cover;
+  display: inline-block;
+}
+
+/* ---------- Dropdown menu visuals ---------- */
+/* keep dropdown hidden by default and shown only via .show (Bootstrap/Popper) */
+.navbar-dashboard .dropdown-menu {
+  min-width: 220px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  border: none;
+  background: #fff;
+  color: #212529;
+
+  /* hide by default (important to override ul default) */
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: top right;
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 2000;
+  padding: 0.35rem 0;
+}
+
+/* visible state */
+.navbar-dashboard .dropdown-menu.show {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+  transform: none !important; /* allow Popper inline transform; fallback removed */
+}
+
+/* align dropdown flush to parent right edge (when dropdown-menu-end used) */
+/* We don't force transform; Popper will set inline left/top/transform. This ensures right alignment fallback. */
+.navbar-dashboard .profile-dropdown .dropdown-menu.dropdown-menu-end {
+  right: 0;
+  left: auto;
+  margin: 0;
+  /* Provide a small fallback top gap if Popper isn't available:
+     Popper normally sets top/transform inline; this is only a fallback. */
+  top: calc(100% + 6px) !important;
+}
+
+/* small vertical spacing tweak to keep consistent gap */
+.navbar-dashboard .dropdown-menu {
+  margin-top: 0.25rem;
+}
+
+/* dropdown header and items */
+.navbar-dashboard .dropdown-header {
+  font-size: 0.8rem;
+  color: #6c757d;
+  padding: 8px 14px;
+}
+
+.navbar-dashboard .dropdown-item {
+  padding: 9px 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* logout button styling kept consistent */
+.dropdown-logout-btn {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: #dc3545;
+  padding: 8px 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.12s;
+}
+
+.dropdown-logout-btn:hover {
+  background-color: #fff5f5;
+}
+
+/* ---------- Accessibility / touch tweaks ---------- */
+/* slightly larger hit area on mobile */
+@media (max-width: 576px) {
+  .profile-dropdown .dropdown-toggle {
+    padding: 10px;
+  }
+
+  .navbar-dashboard .dropdown-menu {
+    min-width: 180px;
+  }
+}
+
+/* ---------- Utility: prevent menu from being wider than viewport ---------- */
+.navbar-dashboard .dropdown-menu {
+  max-width: calc(100vw - 16px);
+  overflow-wrap: break-word;
+}
+
+/* ---------- Optional subtle fade (keeps it smooth) ---------- */
+.navbar-dashboard .dropdown-menu.show {
+  animation: fadeIn 160ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

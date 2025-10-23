@@ -1,4 +1,9 @@
-@include('home.header')
+@extends('layouts.app')
+
+@section('title', 'Industry Registration')
+@section('body-class', 'industry-register-page')
+
+@section('content')
 
 <div class="container-fluid mt-4 mb-5">
     <div class="container">
@@ -135,10 +140,13 @@
         </div>
     </div>
 </div>
+<<<<<<< Updated upstream
 
 @include('home.footer')
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+=======
+>>>>>>> Stashed changes
 <script>
     const envColors = [
     '#2e7d32', // forest green
@@ -220,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         });
 
+<<<<<<< Updated upstream
         // ---- Pie Chart ----
        
         const erfAmounts = @json($erfAmounts);
@@ -437,3 +446,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+=======
+@endsection
+>>>>>>> Stashed changes

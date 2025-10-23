@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Http;
+
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeUserMail;
 use App\Models\ChemicalStoredList;
@@ -412,4 +414,117 @@ class RegisterController extends Controller
 
         // return null;
     }
+<<<<<<< Updated upstream
+=======
+
+    //by jalaj on 7-10-2025 for insurance company registration
+      // Show Insurance form
+    public function showInsuranceForm()
+    {
+        return view('insurance.register');
+    }
+
+    // Handle Insurance registration
+     /**
+     * Handle Insurance Company Registration
+     */
+    public function registerInsurance(Request $request)
+    {
+        $request->validate([
+            'industry_name' => 'required|string|max:255',
+            'pan_no' => 'required|string|size:10|unique:users,pan_no',
+            'company_gst' => 'nullable|string|max:15',
+            'estd_year' => 'required|digits:4',
+            'locality' => 'required|string|max:255',
+            'state' => 'required|string',
+            'district' => 'required|string',
+            'industry_pincode' => 'required|digits:6',
+            'authorised_person_name' => 'required|string|max:255',
+            'authorised_person_designation' => 'required|string|max:100',
+            'authorised_person_email' => 'required|email|max:255',
+            'mobile_no' => 'required|digits_between:10,15',
+            'industry_email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|string|min:8|confirmed',
+            'captcha' => 'required|captcha'
+        ]);
+
+        // Create the user
+        User::create([
+            'name' => $request->industry_name,
+            'email' => $request->industry_email,
+            'password' => Hash::make($request->password), // ✅ server-side hashing
+            'contact_no' => $request->mobile_no,
+            'state_code' => $request->state,
+            'district_id' => $request->district,
+            'pan_no' => strtoupper($request->pan_no),
+            'gst_no' => $request->company_gst,
+            'role_type' => 4, // static for Insurance Company
+        ]);
+
+        return redirect()->route('insurance.register')->with('success', 'Insurance company registered successfully!');
+    }
+
+    // by jalaj gst by pass *******************************************
+    /**
+     * Get JWT token from FastAPI and cache it
+     */
+    private function getFastApiToken()
+    {
+        $cacheKey = env('FASTAPI_TOKEN_CACHE_KEY', 'fastapi_token');
+        $ttl = (int) env('FASTAPI_TOKEN_TTL', 6600); // 110 mins
+
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        $fastApiUrl = rtrim(env('FASTAPI_URL'), '/');
+
+        try {
+            $response = Http::timeout(5)->get($fastApiUrl . '/generate-token');
+            if ($response->successful()) {
+                $token = $response->json('access_token');
+                Cache::put($cacheKey, $token, $ttl);
+                return $token;
+            }
+        } catch (\Exception $e) {
+            \Log::error('FastAPI token fetch failed: ' . $e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Verify GST number using FastAPI microservice
+     */
+    public function verifyGst(Request $request)
+    {
+        $gst = strtoupper(trim($request->input('gst')));
+        if (!$gst) {
+            return response()->json(['error' => 'GST is required'], 422);
+        }
+
+        $token = $this->getFastApiToken();
+        if (!$token) {
+            return response()->json(['error' => 'Unable to fetch FastAPI token'], 500);
+        }
+
+        $fastApiUrl = rtrim(env('FASTAPI_URL'), '/');
+
+        try {
+            $resp = Http::withToken($token)->timeout(6)->get($fastApiUrl . '/verify/' . $gst);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'FastAPI not reachable', 'message' => $e->getMessage()], 502);
+        }
+
+        if ($resp->status() === 200) {
+            return response()->json(['success' => true, 'data' => $resp->json()]);
+        } elseif ($resp->status() === 404) {
+            return response()->json(['success' => false, 'message' => 'GST not found'], 404);
+        } else {
+            return response()->json(['error' => 'Unexpected FastAPI error', 'status' => $resp->status()], 500);
+        }
+    }
+
+
+>>>>>>> Stashed changes
 }

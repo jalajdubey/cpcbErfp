@@ -1,0 +1,179 @@
+/* ============================================================
+   INSURANCE COMPANY LIST – v6 (Final Stable)
+   ✅ No number splitting
+   ✅ Perfect column widths
+   ✅ Bottom-only radius, no scroll
+============================================================ */
+
+/* ------------------------------------------------------------
+   CARD + CONTAINER
+------------------------------------------------------------ */
+.card-header + .card-body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.card-body {
+  padding: 0 !important;
+}
+
+.table-responsive {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  background: #fff;
+  border-radius: 0 0 10px 10px !important;
+  border-top: none !important;
+}
+
+/* ------------------------------------------------------------
+   TABLE BASE
+------------------------------------------------------------ */
+.card .custom-admin-table {
+  width: 100%;
+  margin: 0 !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  border: 1px solid #dee2e6;
+  border-top: none !important;
+  border-radius: 0 0 10px 10px !important;
+  background-color: #fff;
+  table-layout: auto;
+}
+
+/* ------------------------------------------------------------
+   HEADER
+------------------------------------------------------------ */
+.custom-admin-table thead {
+  background-color: #e8eefc !important;
+}
+
+.custom-admin-table thead tr {
+  border-bottom: 2px solid #d6d9e5 !important;
+}
+
+.custom-admin-table thead th {
+  color: #0b2042 !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  background-color: #e8eefc !important;
+  padding: 0.65rem 0.8rem !important;
+  border-right: 1px solid #dee2e6 !important;
+  text-align: left;
+  vertical-align: middle;
+  white-space: normal !important;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+/* ✅ Serial Number Column – Wider + No Wrap */
+.custom-admin-table thead th:first-child,
+.custom-admin-table tbody td:first-child {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: center !important;
+  white-space: nowrap !important; /* 🚫 stop number splitting */
+}
+
+/* Company Name Column */
+.custom-admin-table thead th:nth-child(2),
+.custom-admin-table tbody td:nth-child(2) {
+  min-width: 280px !important;
+  width: 35%;
+}
+
+/* Contact Number Column */
+.custom-admin-table thead th:nth-child(5),
+.custom-admin-table tbody td:nth-child(5) {
+  min-width: 140px !important;
+  text-align: center !important;
+  white-space: nowrap !important; /* keep phone number in one line */
+}
+
+/* Web Address Column – Narrower */
+.custom-admin-table thead th:nth-child(6),
+.custom-admin-table tbody td:nth-child(6) {
+  min-width: 160px !important;
+  max-width: 160px !important;
+  word-break: break-all;
+}
+
+.custom-admin-table thead th:last-child {
+  border-right: none !important;
+}
+
+/* ------------------------------------------------------------
+   BODY
+------------------------------------------------------------ */
+.custom-admin-table tbody tr td {
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  color: #212529;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+.custom-admin-table tbody tr td:last-child {
+  border-right: none;
+}
+
+.custom-admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover Highlight */
+.custom-admin-table tbody tr:hover {
+  background-color: #f6faff !important;
+  transition: background-color 0.25s ease;
+}
+
+/* Links inside table */
+.custom-admin-table a {
+  color: #084095;
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.custom-admin-table a:hover {
+  text-decoration: underline;
+  color: #062f72;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE
+------------------------------------------------------------ */
+@media (max-width: 992px) {
+  .custom-admin-table {
+    table-layout: auto;
+  }
+
+  .custom-admin-table thead th,
+  .custom-admin-table tbody td {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .custom-admin-table thead th:nth-child(2),
+  .custom-admin-table tbody td:nth-child(2) {
+    min-width: 180px !important;
+  }
+
+  .custom-admin-table thead th:nth-child(5),
+  .custom-admin-table tbody td:nth-child(5) {
+    min-width: 120px !important;
+  }
+
+  .custom-admin-table thead th:nth-child(6),
+  .custom-admin-table tbody td:nth-child(6) {
+    min-width: 140px !important;
+  }
+}
+
+/* Optional subtle shadow under header */
+.custom-admin-table thead {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}

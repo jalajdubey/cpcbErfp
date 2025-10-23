@@ -1,4 +1,9 @@
-@include('home.header')
+@extends('layouts.app')
+
+@section('title', 'Login')
+@section('body-class', 'login-page')
+
+@section('content')
 
 <div class="container-fluid mt-5 mb-5">
          <div class="container mt-2 mb-5">
@@ -28,4 +33,4 @@
 
          </div>
 </div>
-@include('home.footer')
+@endsection

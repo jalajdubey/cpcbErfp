@@ -1,0 +1,66 @@
+<<<<<<< Updated upstream
+=======
+/* ===============================
+   1️⃣ Core Framework
+   =============================== */
+
+/* Bootstrap (installed via npm) */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Font Awesome (installed via npm)
+   - Automatically handles font paths in Vite dev & build
+   - No need to manually copy webfonts */
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
+/* ===============================
+   2️⃣ Theme & Plugin Styles
+   =============================== */
+
+/* KaiAdmin Theme */
+@import "./kaiadmin.min.css";
+
+/* Plugin Styles (DataTables, Charts, etc.) */
+@import "./plugins.min.css";
+
+/* Fonts and External Libraries */
+@import "./fonts.css";   /* Keep if you have custom @font-face like KaiAdmin fonts */
+@import "./css2.css";    /* Only if you need Google Fonts or similar */
+
+
+/* ===============================
+   3️⃣ Project-Level Styles
+   =============================== */
+
+/* Header and Footer */
+@import "./header.css";
+@import "./footer.css";
+
+/* Core Custom Styles */
+@import "./custom.css";
+
+/* Sidebar (common for logged-in users) */
+@import "./custom/sidebar.css";
+@import "./custom/industry.register.css";
+
+/* Legacy / Temporary Customizations */
+@import "./customamardeep.css";
+
+
+/* ===============================
+   4️⃣ Global Overrides
+   =============================== */
+
+/* Add site-wide utility tweaks or fixes below */
+
+
+/* ===============================
+   5️⃣ Dropdown Fix & Enhancement
+   =============================== */
+
+/* Example fix for dropdown overlap issue */
+.dropdown-menu {
+  z-index: 1050 !important;
+}
+>>>>>>> Stashed changes

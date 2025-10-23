@@ -1,0 +1,169 @@
+/* ============================================================
+   General Dashboard Layout – Final (KaiAdmin + Bootstrap 5.3)
+============================================================ */
+
+/* 🔹 Base setup */
+body.kaiadmin {
+  background-color: #f5f6fa;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* ============================================================
+   🔹 MAIN PANEL – Fixed Sidebar + 50px Navbar
+============================================================ */
+.main-panel {
+  position: relative;
+  margin-left: 250px;              /* sidebar width */
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  background-color: #f8f9fc;
+  transition: all 0.3s ease;
+  padding-top: 45px;               /* tighter below 50px navbar */
+  padding-left: 0;
+  padding-right: 0;
+  overflow-x: hidden;
+}
+
+/* ✅ Ensure no unwanted gap under navbar */
+.navbar-dashboard + .main-panel {
+  margin-top: 0 !important;
+  padding-top: 45px !important;
+}
+
+
+/* ✅ Uniform spacing for all pages below navbar */
+.main-panel .container,
+.main-panel .container-fluid {
+  padding-top: 0.75rem !important;    /* consistent top spacing */
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+  margin: 0 auto !important;
+  width: 100%;
+}
+
+/* ============================================================
+   🔹 CARD OPTIMIZATION
+============================================================ */
+.main-panel .card {
+  margin: 0.5rem 0.25rem 0.75rem 0.25rem !important;
+  border-radius: 10px;
+  border: 1px solid #e3e6ef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover polish */
+.main-panel .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(8, 64, 149, 0.12);
+}
+
+/* 🔹 Card Header – Slim + Styled */
+.card .card-header {
+  padding: 0.55rem 1rem !important;
+  background: linear-gradient(270deg, #084095 0%, #108e16 100%) !important;
+  border-bottom: none !important;
+  color: #fff;
+}
+
+.card .card-header h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card .card-header .btn {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 6px;
+  color: #084095;
+  background-color: #fff;
+  border: none;
+}
+
+.card .card-header .btn:hover {
+  background-color: #eaf1ff;
+  color: #062f72;
+}
+
+/* ============================================================
+   🔹 TABLE DESIGN
+============================================================ */
+
+/* Compact header, highlighted */
+.custom-admin-table thead th {
+  background-color: #084095;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.75rem !important;
+  border-bottom: 2px solid #07347a;
+}
+
+.custom-admin-table tbody td {
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.875rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #eef5ff !important;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.custom-admin-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.custom-admin-table tbody tr:hover {
+  background-color: #e9f2ff !important;
+  box-shadow: 0 2px 8px rgba(8, 64, 149, 0.1);
+  transform: scale(1.003);
+}
+
+/* ============================================================
+   🔹 RESPONSIVE ADJUSTMENTS
+============================================================ */
+@media (max-width: 992px) {
+  .main-panel {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 50px !important; /* same as navbar height */
+  }
+
+  .card .card-header h5 {
+    font-size: 0.95rem;
+  }
+
+  .custom-admin-table thead th {
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================================
+   🔹 SIDEBAR OPEN STATE
+============================================================ */
+body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+/* ============================================================
+   🔹 PAGE EDGE POLISH
+============================================================ */
+.main-panel::after {
+  content: "";
+  display: block;
+  height: 20px; /* subtle gap at bottom */
+}
+
+.card,
+.table-hover tbody tr {
+  transition: all 0.25s ease !important;
+}

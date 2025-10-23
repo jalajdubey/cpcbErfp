@@ -1,0 +1,130 @@
+/* ============================================================
+   TOP NAVBAR STYLES (KaiAdmin-Lite – Fixed Layout)
+============================================================ */
+
+.navbar-dashboard {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: calc(100% - 265px);
+  height: 50px;
+  background-color: #084095;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  z-index: 1100;
+  transition: all 0.3s ease;
+}
+
+
+/* ✅ Ensure no overlap with main panel */
+.navbar-dashboard + .main-panel {
+  margin-top: 0;
+  padding-top: 50px;
+}
+
+/* Brand */
+.navbar-dashboard .navbar-brand {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+.navbar-dashboard .navbar-brand:hover {
+  color: #b9dcff;
+}
+
+/* Mobile Toggle */
+.btn-toggle {
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: opacity 0.2s ease;
+}
+.btn-toggle:hover { opacity: 0.8; }
+
+/* Profile Dropdown */
+.profile-dropdown {
+  position: relative;
+}
+.profile-dropdown .dropdown-toggle {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+.profile-dropdown .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.profile-dropdown .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Avatar */
+.profile-dropdown .profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Dropdown Menu */
+.navbar-dashboard .dropdown-menu {
+  min-width: 220px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border: none;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+/* Logout Button */
+.dropdown-logout-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  padding: 8px 15px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.dropdown-logout-btn:hover {
+  background-color: #ffe5e5;
+}
+
+/* 🔹 Mobile View Adjustments */
+@media (max-width: 992px) {
+  .navbar-dashboard {
+    left: 0;
+    width: 100%;
+  }
+  .navbar-dashboard .navbar-brand {
+    font-size: 0.95rem;
+  }
+  .profile-dropdown .profile-avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Prevent any horizontal overflow */
+html, body {
+  overflow-x: hidden !important;
+}

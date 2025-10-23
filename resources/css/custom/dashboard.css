@@ -1,0 +1,133 @@
+/* ============================================================
+   🔹 Dashboard Cards
+============================================================ */
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  height: 100%;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* 🔹 Icon Circle */
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: #fff;
+  margin: 0 auto 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* 🔹 Color Variants */
+.bg-icon-blue { background-color: #084095; }
+.bg-icon-green { background-color: #198754; }
+.bg-icon-orange { background-color: #fd7e14; }
+.bg-icon-yellow { background-color: #ffc107; color: #0b2042; }
+.bg-icon-teal { background-color: #20c997; }
+
+/* 🔹 Text Elements */
+.dashboard-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.dashboard-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #084095;
+  letter-spacing: 0.5px;
+}
+
+/* 🔹 View Button */
+.btn-view {
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #084095;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-view:hover {
+  background-color: #062f72;
+  color: #fff;
+}
+
+/* ============================================================
+   🔹 Chart Containers
+============================================================ */
+.chart-container {
+  position: relative;
+  height: 300px !important;
+  width: 100%;
+  padding: 8px;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+/* Ensure Chart.js canvas fills correctly */
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* Style for horizontal bar chart */
+canvas#industriesByCompanyChart_HBar {
+  height: 400px !important;
+}
+
+/* ============================================================
+   🔹 Responsive Tweaks
+============================================================ */
+@media (max-width: 992px) {
+  .dashboard-card {
+    padding: 16px;
+    margin-bottom: 15px;
+  }
+
+  .dashboard-count {
+    font-size: 1.3rem;
+  }
+
+  .chart-container {
+    height: 250px !important;
+    padding: 5px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .dashboard-card {
+    padding: 24px;
+  }
+
+  .chart-container {
+    height: 340px !important;
+  }
+}

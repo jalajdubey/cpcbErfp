@@ -1,0 +1,169 @@
+/* ============================================================
+   DASHBOARD MODULE STYLES
+   ------------------------------------------------------------
+   Applies to Admin, Insurance, and Industry dashboards.
+   Handles cards, charts, titles, and responsive layout.
+============================================================ */
+
+/* -------------------------------
+   Typography & Section Titles
+---------------------------------- */
+.dashboard-title {
+  text-align: center;
+  color: #084095;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* -------------------------------
+   Dashboard Cards
+---------------------------------- */
+.dashboard-card {
+  background: linear-gradient(to bottom right, #ffffff, #f5f9ff);
+  border: 1px solid #dee2e6;
+  border-radius: 16px;
+  padding: 25px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+}
+
+/* -------------------------------
+   Icons & Colors
+---------------------------------- */
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+/* Color helpers */
+.bg-icon-blue    { background-color: #0d6efd; }
+.bg-icon-green   { background-color: #198754; }
+.bg-icon-orange  { background-color: #fd7e14; }
+.bg-icon-red     { background-color: #dc3545; }
+.bg-icon-teal    { background-color: #20c997; }
+.bg-icon-yellow  { background-color: #ffc107; color: #000; }
+.bg-icon-gray    { background-color: #6c757d; }
+.bg-icon-indigo  { background-color: #6610f2; }
+
+/* -------------------------------
+   Labels & Metrics
+---------------------------------- */
+.dashboard-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 6px;
+}
+
+.dashboard-count {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* -------------------------------
+   Buttons
+---------------------------------- */
+.btn-view {
+  font-size: 13px;
+  padding: 5px 18px;
+  background-color: #eaf1fb;
+  color: #084095;
+  border-radius: 25px;
+  border: 1px solid #cfe2ff;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-view:hover {
+  background-color: #d0e4ff;
+  color: #063073;
+  border-color: #a4c7f7;
+}
+
+/* -------------------------------
+   Chart Containers (Fix stretch)
+---------------------------------- */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 400px;         /* fixed consistent height */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.chart-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px;
+  }
+}
+
+/* -------------------------------
+   Card & Chart Headers
+---------------------------------- */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card h5 {
+  color: #084095;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+/* -------------------------------
+   Layout Tweaks & Responsive
+---------------------------------- */
+.row.g-4 {
+  row-gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 1.4rem;
+  }
+
+  .dashboard-card {
+    padding: 18px 14px;
+  }
+
+  .btn-view {
+    width: 100%;
+  }
+}

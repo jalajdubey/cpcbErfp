@@ -1,23 +1,42 @@
-<nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="margin-top:-5px">
-  <div class="container-fluid">
+{{-- =====================================================
+     🧭 Top Navbar (ERF Dashboard – KaiAdmin Lite Compatible)
+====================================================== --}}
+<nav id="dashboardNavbar" class="navbar navbar-dashboard navbar-expand-lg">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
 
+    {{-- 🟦 Sidebar Toggle (mobile only) --}}
+    <button
+      class="btn btn-toggle d-lg-none border-0 bg-transparent text-white toggle-sidebar"
+      type="button"
+      aria-label="Toggle sidebar"
+      data-bs-toggle="tooltip"
+      data-bs-placement="bottom"
+      title="Toggle sidebar">
+      <i class="fa fa-bars"></i>
+    </button>
 
-    <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-      <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"
-          aria-haspopup="true">
-          <i class="fa fa-search"></i>
-        </a>
-        <!-- <ul class="dropdown-menu dropdown-search animated fadeIn">
-                    <form class="navbar-left navbar-form nav-search">
-                      <div class="input-group">
-                        <input type="text" placeholder="Search ..." class="form-control">
-                      </div>
-                    </form>
-                  </ul> -->
-      </li>
+    {{-- 🏛️ Brand --}}
+    <a href="{{ route('admin.dashboard') }}"
+       class="navbar-brand text-white fw-semibold text-uppercase mb-0">
+      ERF Portal
+    </a>
 
+    {{-- 👤 Profile Dropdown --}}
+    <div class="dropdown profile-dropdown">
+      <a href="#"
+         class="dropdown-toggle d-flex align-items-center text-white"
+         id="profileDropdown"
+         data-bs-toggle="dropdown"
+         aria-expanded="false"
+         aria-label="User menu">
+        <img src="{{ asset('images/profile.jpg') }}"
+             alt="User Avatar"
+             class="profile-avatar me-2">
+        <span class="fw-medium">{{ Auth::user()->firstname ?? 'Guest' }}</span>
+        <i class="fa fa-caret-down ms-2"></i>
+      </a>
 
+<<<<<<< Updated upstream
 
 
       <li class="nav-item topbar-user dropdown hidden-caret">
@@ -79,7 +98,23 @@
         </ul>
       </li>
     </ul>
+=======
+      <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+          aria-labelledby="profileDropdown">
+        <li class="dropdown-header small text-muted px-3">
+          {{ Auth::user()->email ?? 'guest@example.com' }}
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+          <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
+            @csrf
+            <button type="submit" class="dropdown-logout-btn w-100 text-start">
+              <i class="fa fa-sign-out-alt me-2"></i> Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+>>>>>>> Stashed changes
   </div>
 </nav>
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}

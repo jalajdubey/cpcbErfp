@@ -1,0 +1,75 @@
+#####  start from 68 id in uat and add 15 records till 82 ids
+
+
+*****************************************************
+Query for whitelist insert of ips and records
+*****************************************************
+
+INSERT INTO `api_keys` (`id`, `user_id`, `ip_address`, `api_key`, `active`, `name_of_general_insurance_company`, 
+`company_address`, `name_of_ceo`, `name_of_actuary`, `contact_no`, `web_address`, `expires_at`, `created_at`, `updated_at`) 
+VALUES (NULL, '6', '165.85.163.58', '165bc4144c5b85163eb4e62c958a0bed', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '165.85.163.208', '165bc4144c5b85163eb4e62c9208a0beg', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '165.85.147.31', '165bc4144c5b85147eb4e62c9165a0beh', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '165.85.234.40', '165bc4144c5b85234eb4e62c940a0bei', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '165.85.234.39', '165bc4144c5b85234eb4e62c939a0bej', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '165.85.147.30', '165bc4144c5b85147eb4e62c930a0bek', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '130.211.39.43', '130bc4144c5b21139eb4e62c943a0bel', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '34.120.72.104', '34bc4144c5b12072eb4e62c9104a0bem', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '34.96.70.57', '34bc4144c5b9670eb4e62c957a0bfe', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '34.117.238.171', '34bc4144c5b117238eb4e62c9171a0bfg', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '35.190.22.129', '35bc4144c5b19022eb4e62c9129a0befi', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '13.232.109.103', '13bc4144c5b232109eb4e62c9103a0bfq', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '13.235.122.203', '13bc4144c5b235122eb4e62c9203a0bgn', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '18.60.4.19', '18bc4144c5b604eb4e62c919a0bhd', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19'),
+(NULL, '6', '18.60.145.104', '18bc4144c5b60145eb4e62c9104a0bip', '1', 'ICICI LOMBARD General Insurance Company Limited', 
+'Sample Address 6', 'Mr. Sanjeev Mantri', 'Mr. Prasun Kumar Sarkar', '01234567805', 'www.icicilombard.com', NULL, 
+'2025-04-23 15:21:19', '2025-04-23 15:21:19');
+
+
+*******************************************************
+Ips and its associated API_Token
+*******************************************************
+S.No.     IP Address              Api Token
+1       165.85.163.58   =>   165bc4144c5b85163eb4e62c958a0bef
+2       165.85.163.208  =>   165bc4144c5b85163eb4e62c9208a0beg
+3       165.85.147.31   =>   165bc4144c5b85147eb4e62c9165a0beh
+4       165.85.234.40   =>   165bc4144c5b85234eb4e62c940a0bei
+5       165.85.234.39   =>   165bc4144c5b85234eb4e62c939a0bej
+6       165.85.147.30   =>   165bc4144c5b85147eb4e62c930a0bek
+7       130.211.39.43   =>   130bc4144c5b21139eb4e62c943a0bel
+8       34.120.72.104   =>   34bc4144c5b12072eb4e62c9104a0bem
+9       34.96.70.57     =>   34bc4144c5b9670eb4e62c957a0bfe
+10      34.117.238.171  =>   34bc4144c5b117238eb4e62c9171a0bfg
+11      35.190.22.129   =>   35bc4144c5b19022eb4e62c9129a0befi
+12      13.232.109.103  =>   13bc4144c5b232109eb4e62c9103a0bfq
+13      13.235.122.203  =>   13bc4144c5b235122eb4e62c9203a0bgn
+14      18.60.4.19      =>   18bc4144c5b604eb4e62c919a0bhd
+15      18.60.145.104   =>   18bc4144c5b60145eb4e62c9104a0bip

@@ -1,0 +1,59 @@
+/* ===============================
+   1️⃣ Core Frameworks
+   =============================== */
+
+/* Bootstrap Core (provides dropdown, modal, grid, etc.) */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Icon Fonts */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
+/* ===============================
+   2️⃣ Theme & Third-Party Plugins
+   =============================== */
+
+/* KaiAdmin Theme (depends on Bootstrap) */
+@import "./kaiadmin.min.css";
+
+/* Plugin Styles (DataTables, Charts, etc.) */
+@import "./plugins.min.css";
+
+
+/* ===============================
+   3️⃣ Project Custom Styles
+   =============================== */
+
+/* Core Layout Elements */
+@import "./custom/layout.css";
+@import "./custom/sidebar.css";
+@import "./custom/topnavbar.css";
+@import "./custom/dashboard.css";
+
+/* Module-specific (Admin pages, etc.) */
+@import "./modules/admin.css";
+
+
+/* ===============================
+   4️⃣ Responsive & Utility Styles
+   =============================== */
+
+@media (max-width: 992px) {
+  .main-panel {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+}
+
+/* Sidebar collapsed */
+body.sidebar-open .main-panel {
+  margin-left: 0 !important;
+}
+
+/* General body styling */
+body {
+  background-color: #f8f9fc;
+  font-family: 'Segoe UI', sans-serif;
+}

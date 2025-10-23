@@ -1,10 +1,9 @@
-@include('home.header')
+@extends('layouts.app')
 
-<style>
-    /* Style adjustments can be made here */
-</style>
-</head>
-<body>
+@section('title', 'Industry Registration')
+@section('body-class', 'industry-register-page')
+
+@section('content')
     <!-- Navbar -->
    
     <div class="d-flex align-items-center justify-content-center mt-5">
@@ -36,4 +35,4 @@
         </div>
     </div>
 
-@include('home.footer')
+@endsection

@@ -1,4 +1,9 @@
-@include('home.header')
+@extends('layouts.app')
+
+@section('title', 'Login')
+@section('body-class', 'login-page')
+
+@section('content')
 
 <div class="container-fluid">
     <div class="container mt-2 mb-5">
@@ -25,5 +30,4 @@ the power conferred under Section 7A (3) of the Public Liability Insurance Act, 
     </div>
 </div>
 
-
-@include('home.footer')
+@endsection

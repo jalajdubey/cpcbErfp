@@ -256,6 +256,11 @@ public function verifyOtp($user, $inputOtp)
 			"key" => trim($key),
 			"templateid" => trim($templateid)
 		);
+		//this is for local , for testing purpose only
+		if (app()->environment('local')) {
+			session(['dev_otp' => $otp]);
+		}
+
 		$dataAPi = $this->post_to_url("https://msdgweb.mgov.gov.in/esms/sendsmsrequestDLT", $data); //calling post_to_url to send sms
 
 		return $dataAPi;
