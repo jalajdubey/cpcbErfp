@@ -132,12 +132,18 @@
                 <h5>Contact us:</h5>
                 <p><strong>Office:</strong><br> Parivesh Bhawan, East Arjun Nagar, Delhi - 110032</p>
                 <p><strong>Email:</strong><br> ewaste2[dot]cpcb[at]gov[dot]in</p>
+                <p><strong>Office:</strong><br> Parivesh Bhawan, East Arjun Nagar, Delhi - 110032</p>
+                <p><strong>Email:</strong><br> ewaste2[dot]cpcb[at]gov[dot]in</p>
             </div>
 
             <div class="col-md-6">
                 <h5>Write to us:</h5>
                 <form id="contactForm" autocomplete="off">
                     <div class="row">
+                        <div class="mb-2 col-md-6"><input type="text" class="form-control" placeholder="Name" name="name" required></div>
+                        <div class="mb-2 col-md-6"><input type="email" class="form-control" placeholder="Email" name="email" required></div>
+                        <div class="mb-2 col-md-12"><input type="text" class="form-control" placeholder="Subject" name="subject"></div>
+                        <div class="mb-3 col-md-12"><textarea class="form-control" rows="3" placeholder="Message" name="message"></textarea></div>
                         <div class="mb-2 col-md-6"><input type="text" class="form-control" placeholder="Name" name="name" required></div>
                         <div class="mb-2 col-md-6"><input type="email" class="form-control" placeholder="Email" name="email" required></div>
                         <div class="mb-2 col-md-12"><input type="text" class="form-control" placeholder="Subject" name="subject"></div>

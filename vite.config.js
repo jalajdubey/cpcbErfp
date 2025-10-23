@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/loggedin.css',
+                'resources/css/loggedin.css',
                 'resources/js/loggedin.js', // 🆕 Added for logged-in users
             ],
             refresh: true, // ✅ Keeps hot-reload for all files

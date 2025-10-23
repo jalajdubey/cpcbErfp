@@ -38,7 +38,13 @@ use App\Http\Controllers\CommonController;
 //jalaj on 13-10-2025
 Route::post('/verify-gst', [RegisterController::class, 'verifyGst'])->name('verify.gst');
 
+//jalaj on 13-10-2025
+Route::post('/verify-gst', [RegisterController::class, 'verifyGst'])->name('verify.gst');
+
 //by jalaj
+Route::get('/get-districts', [CommonController::class, 'getDistrictsByState'])
+    ->name('get.districts.by.state');
+
 Route::get('/get-districts', [CommonController::class, 'getDistrictsByState'])
     ->name('get.districts.by.state');
 

@@ -319,7 +319,21 @@ img, video {
 
             <div class="col-sm-6 d-flex justify-content-end align-items-center">
                 <div class="d-flex align-items-center gap-3">
+            <div class="col-sm-6 d-flex justify-content-end align-items-center">
+                <div class="d-flex align-items-center gap-3">
 
+                    {{-- Sign Up Dropdown --}}
+                    <div class="dropdown">
+                        <button class="btn border-0 fw-bold px-4 py-2 dropdown-toggle"
+                                type="button" id="signupDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false" style="font-size:20px;">
+                            Sign up
+                        </button>
+                        <ul class="dropdown-menu shadow" aria-labelledby="signupDropdown">
+                            <li><a class="dropdown-item" href="{{ route('industry.register') }}">Industry</a></li>
+                            <li><a class="dropdown-item" href="{{ route('insurance.register') }}">Insurance Company</a></li>
+                        </ul>
+                    </div>
                     {{-- Sign Up Dropdown --}}
                     <div class="dropdown">
                         <button class="btn border-0 fw-bold px-4 py-2 dropdown-toggle"
@@ -335,14 +349,23 @@ img, video {
 
                     {{-- Separator --}}
                     <div class="vertical-separator"></div>
+                    {{-- Separator --}}
+                    <div class="vertical-separator"></div>
 
+                    {{-- Public Dashboard --}}
+                    <a class="custom-login-btn" href="{{ route('publicdashboard') }}">
+                        <i class="bi bi-bar-chart"></i> Public Dashboard
+                    </a>
                     {{-- Public Dashboard --}}
                     <a class="custom-login-btn" href="{{ route('publicdashboard') }}">
                         <i class="bi bi-bar-chart"></i> Public Dashboard
                     </a>
 
                     <div class="vertical-separator"></div>
+                    <div class="vertical-separator"></div>
 
+                    {{-- Login --}}
+                    <a href="{{ route('login') }}" class="custom-login-btn">Login</a>
                     {{-- Login --}}
                     <a href="{{ route('login') }}" class="custom-login-btn">Login</a>
 
@@ -351,7 +374,19 @@ img, video {
         </div>
     </div>
 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+{{-- NAVIGATION --}}
+<nav class="navbar navbar-expand-lg navbar-light" id="mainnav">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 {{-- NAVIGATION --}}
 <nav class="navbar navbar-expand-lg navbar-light" id="mainnav">
     <div class="container">

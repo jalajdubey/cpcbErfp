@@ -4,6 +4,12 @@
 @section('body-class', 'industry-register-page')
 
 @section('content')
+@extends('layouts.app')
+
+@section('title', 'Industry Registration')
+@section('body-class', 'industry-register-page')
+
+@section('content')
 
 <div class="container-fluid mt-4 mb-5">
     <div class="container">
